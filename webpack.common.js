@@ -1,7 +1,9 @@
 var path = require('path');
 
 var ports = {
+  // local dev server port
   default: 8081,
+  // local hot reload dev server port
   reload: 3000,
 };
 
@@ -9,20 +11,22 @@ var urls = {
   public: '/',
 };
 
-var clientRoot = path.resolve(__dirname, 'src', 'client');
+var projectRoot = path.resolve(__dirname);
+
+var clientRoot = path.join(projectRoot, 'src', 'client');
 
 var paths = {
   clientRoot: clientRoot,
-  serverRoot: path.resolve(__dirname, 'src', 'server'),
-  nodeModules: path.resolve(__dirname, 'node_modules'),
-  dist: path.resolve(__dirname, 'dist'),
-  typings: path.resolve(__dirname, 'typings'),
-  staticFiles: path.join(clientRoot, 'static'),
-  coverage: path.resolve(__dirname, 'coverage'),
+  serverRoot: path.join(projectRoot, 'src', 'server'),
+  nodeModules: path.join(projectRoot, 'node_modules'),
+  buildOutput: path.join(projectRoot, 'buildOutput'),
+  typings: path.join(projectRoot, 'typings'),
+  coverage: path.join(projectRoot, 'coverage'),
   
   mainEntry: path.join(clientRoot, 'bootstrap.ts'),
   vendorEntry: path.join(clientRoot, 'vendor.ts'),
   testEntry: path.join(clientRoot, 'karma-entry.js'),
+  staticFiles: path.join(clientRoot, 'static'),
 };
 
 var files = {
@@ -50,7 +54,7 @@ var preLoaders = {
     exclude: [
       paths.nodeModules, // skip all node modules
       paths.typings, // skip all type definitions
-      paths.dist, // skip output
+      paths.buildOutput, // skip output
       paths.serverRoot, // skip server
     ],
   },
@@ -69,7 +73,7 @@ var loaders = {
     exclude: [
       paths.nodeModules, // skip all node modules
       paths.typings, // skip all type definitions
-      paths.dist, // skip output
+      paths.buildOutput, // skip output
       paths.serverRoot, // skip server
        /\.(spec|e2e|async)\.ts$/, // skip all test and async TS files 
     ],
@@ -84,7 +88,7 @@ var loaders = {
     exclude: [
       paths.nodeModules, // skip all node modules
       paths.typings, // skip all type definitions
-      paths.dist, // skip output
+      paths.buildOutput, // skip output
       paths.serverRoot, // skip server
        /\.(e2e|async)\.ts$/, // skip end-to-end test and async TS files 
     ],
@@ -103,7 +107,7 @@ var loaders = {
     exclude: [
       paths.nodeModules, // skip all node modules
       paths.typings, // skip all type definitions
-      paths.dist, // skip output
+      paths.buildOutput, // skip output
       paths.serverRoot, // skip server
     ],
   },
@@ -118,7 +122,7 @@ var loaders = {
     exclude: [
       paths.nodeModules, // skip all node modules
       paths.typings, // skip all type definitions
-      paths.dist, // skip output
+      paths.buildOutput, // skip output
       paths.serverRoot, // skip server
     ],
   },
@@ -139,7 +143,7 @@ var postLoaders = {
       /\.(e2e|spec)\.ts$/, // skip all test files
       paths.nodeModules, // skip all node modules
       paths.typings, // skip all type definitions
-      paths.dist, // skip output
+      paths.buildOutput, // skip output
       paths.serverRoot, // skip server
     ],
   },

@@ -36,8 +36,8 @@ coverage
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
-# Dist
-**/dist
+# Build output, distribution, publishing
+**/buildOutput
 **/public/__build__/
 **/src/*/__build__/
 **/__build__/**
