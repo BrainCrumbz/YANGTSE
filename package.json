@@ -53,7 +53,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
     "parallelshell": "^2.0.0",
-    "phantomjs-prebuilt": "^2.1.4",
+    "phantomjs-prebuilt": "^2.1.6",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.5.2",
     "ts-loader": "^0.8.1",
@@ -61,7 +61,7 @@
     "tslint-loader": "^2.1.0",
     "typescript": "^1.7.5",
     "typings": "^0.6.8",
-    "webpack": "^1.12.13",
+    "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
   }
 }
