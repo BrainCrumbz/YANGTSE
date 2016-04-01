@@ -126,9 +126,9 @@ if (devMode == 'reload') {
 
     port: common.ports.reload,
 
-    publicPath: '/',
+    publicPath: common.urls.public,
     
-    contentBase: 'buildOutput/',
+    contentBase: common.paths.localDevRoot,
     
     proxy: {
       // proxied to express backend server
