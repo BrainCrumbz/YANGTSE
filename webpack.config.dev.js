@@ -22,6 +22,7 @@ var config = {
   
   pathinfo: true,
   
+  // Switch loaders to debug mode
   debug: true,
   
   // Set base directory for resolving entry points
@@ -131,7 +132,7 @@ if (devMode == 'reload') {
     contentBase: common.paths.localDevRoot,
     
     proxy: {
-      // proxied to express backend server
+      // proxied to backend web server
       '/*' : defaultServerUrl,
     },
     
