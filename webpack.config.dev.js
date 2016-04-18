@@ -39,9 +39,16 @@ var config = {
   
   output: {
 
+    // The output directory as absolute path (required), where build artifacts are saved
     path: common.paths.buildOutput,
+
+    // A template for the name of each output file on disk, as a relative path
     filename: common.files.bundle,
+
+    // A template for the name of each source-map file, as a relative path
     sourceMapFilename: common.files.sourceMap,
+
+    // A template for the name of each intermediate chunk file, as a relative path
     chunkFilename: common.files.chunk,
 
     publicPath: common.urls.public,
@@ -121,7 +128,7 @@ if (devMode == 'reload') {
     common.paths.mainEntry,
 
   ];
-
+  
   // webpack dev server configuration
   config.devServer = {
 
@@ -138,6 +145,7 @@ if (devMode == 'reload') {
     
     // Enable Hot Module Replacement
     hot: true,
+
     inline: true,
 
     // Set this as true if you want to access dev server from arbitrary url.
@@ -153,7 +161,7 @@ if (devMode == 'reload') {
     stats: { colors: true },
     
   };
-
+  
   config.plugins.push(
 
     // We have to manually add the Hot Replacement plugin when running from Node

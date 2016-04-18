@@ -23,7 +23,7 @@ var config = {
     'main': common.paths.mainEntry,
     
   },
-    
+  
   output: {
 
     path: common.paths.buildOutput,

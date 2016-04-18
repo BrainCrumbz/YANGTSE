@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/server/server.js",
   "scripts": {
-    "clean-deep": "npm cache clean && rimraf ./node_modules ./typings ./buildOutput",
     "clean": "rimraf ./buildOutput/*",
+    "clean-deep": "npm cache clean && rimraf ./node_modules ./typings ./buildOutput",
     "install-typings": "typings install",
     "postinstall": "npm run install-typings",
     "prebuild-dev": "npm run clean",
