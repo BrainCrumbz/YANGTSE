@@ -13,6 +13,7 @@
     "build": "npm run build-dev",
       "build-dev": "webpack --config ./webpack.config.dev.js --display-error-details --progress --profile --colors",
         "prebuild-dev": "npm run clean",
+      "build-watch": "npm run build-dev -- --watch",
       "build-prod": "webpack --config ./webpack.config.prod.js --display-error-details --progress --profile --colors",
         "prebuild-prod": "npm run clean",
     
@@ -40,7 +41,7 @@
     "expressjs"
   ],
   "author": "BrainCrumbz Team <team@braincrumbz.com> (http://www.braincrumbz.com/)",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/BrainCrumbz/YANGTSE.git"
