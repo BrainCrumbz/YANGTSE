@@ -1,4 +1,5 @@
 var path = require('path');
+var autoprefixer = require('autoprefixer');
 
 var ports = {
   // local dev server port
@@ -95,13 +96,11 @@ var loaders = {
     ],
   },
 
-  // support for requiring CSS as raw text
-  css: {
-    test: /\.css$/,
-    // all css required in JS client files will be merged in those
-    loaders: ['raw'],
-    // add the style-loader and css-loader, which you can expand with less-loader etc.
-    //loaders: ['style', 'css'],
+  // support for requiring component-scoped CSS as raw text
+  // NOTE: this assumes that their filename ends in '.component.css'
+  componentCss: {
+    test: /\.component\.css$/,
+    loaders: ['raw', 'postcss'],
     include: [
       paths.clientRoot,
     ],
@@ -110,6 +109,22 @@ var loaders = {
       paths.typings, // skip all type definitions
       paths.buildOutput, // skip output
       paths.serverRoot, // skip server
+    ],
+  },
+
+  // support for requiring global, crosswide CSS as <style> tag
+  // NOTE: this assumes that their filename don't contain `component`
+  globalCss: {
+    test: /^(?!.*component).*\.css$/,
+    loaders: ['style', 'css?sourceMap', 'postcss?sourceMap'],
+    include: [
+      paths.clientRoot,
+      paths.nodeModules, // allow to import CSS from third-party libraries
+    ],
+    exclude: [
+      paths.typings, // skip all type definitions
+      paths.buildOutput, // skip output
+      paths.serverPaths, // skip server
     ],
   },
 
@@ -157,6 +172,14 @@ var noParse = [
   /angular2-polyfills\.js/,
 ];
 
+var postcss = [
+
+  autoprefixer({
+    browsers: ['last 2 versions'],
+  }),
+
+];
+
 // resolve files using only those extensions
 var resolvedExtensions = ['', '.ts', '.js', '.css', '.html'];
 
@@ -179,6 +202,7 @@ var common = {
   loaders: loaders,
   postLoaders: postLoaders,
   noParse: noParse,
+  postcss: postcss,
   resolvedExtensions: resolvedExtensions,
   buildDefines: buildDefines,
 };

@@ -68,7 +68,9 @@
     "zone.js": "0.6.11"
   },
   "devDependencies": {
+    "autoprefixer": "^6.3.6",
     "copy-webpack-plugin": "^1.1.1",
+    "css-loader": "^0.23.1",
     "istanbul-instrumenter-loader": "^0.2.0",
     "jasmine-core": "~2.4.1",
     "karma": "^0.13.22",
@@ -82,8 +84,10 @@
     "karma-webpack": "^1.7.0",
     "parallelshell": "^2.0.0",
     "phantomjs-prebuilt": "^2.1.6",
+    "postcss-loader": "^0.9.1",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.5.2",
+    "style-loader": "^0.13.1",
     "ts-loader": "^0.8.1",
     "tslint": "^3.3.0",
     "tslint-loader": "^2.1.0",
