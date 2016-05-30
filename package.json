@@ -1,6 +1,6 @@
 {
   "name": "YANGTSE",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Yet Another aNGular Two Starter, with Express.js this time",
   "main": "src/server/server.js",
   "scripts": {
