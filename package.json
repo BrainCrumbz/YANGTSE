@@ -1,5 +1,5 @@
 {
-  "name": "YANGTSE",
+  "name": "yangtse",
   "version": "1.0.0",
   "description": "Yet Another aNGular Two Starter, with Express.js this time",
   "main": "src/server/server.js",
@@ -54,12 +54,18 @@
     "npm": ">= 3"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.15",
-    "es6-promise": "3.1.2",
-    "es6-shim": "^0.35.0",
-    "reflect-metadata": "0.1.2",
-    "rxjs": "5.0.0-beta.2",
-    "zone.js": "0.6.11",
+    "@angular/common": "2.0.0-rc.1",
+    "@angular/compiler": "2.0.0-rc.1",
+    "@angular/core": "2.0.0-rc.1",
+    "@angular/http": "2.0.0-rc.1",
+    "@angular/platform-browser": "2.0.0-rc.1",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.1",
+    "@angular/router": "2.0.0-rc.1",
+    "@angular/router-deprecated": "2.0.0-rc.1",
+    "core-js": "^2.4.0",
+    "reflect-metadata": "^0.1.3",
+    "rxjs": "^5.0.0-beta.8",
+    "zone.js": "^0.6.12",
 
     "body-parser": "^1.15.0",
     "cookie-parser": "^1.4.1",
@@ -84,7 +90,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
     "parallelshell": "^2.0.0",
-    "phantomjs-prebuilt": "^2.1.6",
+    "phantomjs-prebuilt": "^2.1.7",
     "postcss-loader": "^0.9.1",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.5.2",
@@ -93,7 +99,7 @@
     "tslint": "^3.3.0",
     "tslint-loader": "^2.1.0",
     "typescript": "^1.8.10",
-    "typings": "^0.7.12",
+    "typings": "^1.0.4",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
   }

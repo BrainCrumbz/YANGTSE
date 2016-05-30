@@ -77,7 +77,7 @@ var loaders = {
       paths.typings, // skip all type definitions
       paths.buildOutput, // skip output
       paths.serverRoot, // skip server
-       /\.(spec|e2e|async)\.ts$/, // skip all test and async TS files
+      /\.(spec|e2e|async)\.ts$/, // skip all test and async TS files
     ],
   },
 
@@ -92,7 +92,7 @@ var loaders = {
       paths.typings, // skip all type definitions
       paths.buildOutput, // skip output
       paths.serverRoot, // skip server
-       /\.(e2e|async)\.ts$/, // skip end-to-end test and async TS files
+      /\.(e2e|async)\.ts$/, // skip end-to-end test and async TS files
     ],
   },
 
@@ -168,8 +168,6 @@ var postLoaders = {
 
 var noParse = [
   /.+zone\.js\/dist\/.+/,
-  /.+angular2\/bundles\/.+/,
-  /angular2-polyfills\.js/,
 ];
 
 var postcss = [
