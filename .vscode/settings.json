@@ -1,11 +1,14 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    "editor.tabSize": 2,
-    "files.exclude": {
-      "**/*.bak": true,
-      "**/node_modules/": true,
-      "**/typings/": true,
-      "**/*.js": { "when": "$(basename).ts" },
-      "**/*.js.map": true
-    }
+  "files.trimTrailingWhitespace": true,
+  "editor.tabSize": 2,
+  "files.exclude": {
+    "**/buildOutput": true,
+    "**/coverage": true,
+    "**/node_modules": true,
+    "**/typings": true,
+    "**/*.bak": true,
+    "**/*.js": { "when": "$(basename).ts" },
+    "**/*.js.map": true
+  }
 }
