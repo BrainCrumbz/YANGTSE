@@ -37,8 +37,8 @@ app.use(express.static(clientOutputPath));
 
 // Set handlebars view engine
 var hsbExt = '.hbs';
-app.engine(hsbExt, exphbs({ 
-  extname: hsbExt, 
+app.engine(hsbExt, exphbs({
+  extname: hsbExt,
   partialsDir: viewRoot,
   layoutsDir: path.resolve(viewRoot, 'layouts'),
   defaultLayout: 'main',
@@ -60,7 +60,7 @@ app.use(cookieParser());
 app.use('/', router);
 
 if (isDevelopment) {
-  // only use in development 
+  // only use in development
   app.use(errorhandler());
 }
 
@@ -78,10 +78,10 @@ var server = app.listen(serverPort, function onStart(err) {
   if (err) {
     console.log(err);
   }
-  
+
   var port = server.address().port;
   var version = packageDef.version;
-  
-  console.log('Server listening on port: %s, version \'%s\', environment: \'%s\'. Open up http://localhost:%s/ in your browser.\n', 
+
+  console.log('Server listening on port: %s, version \'%s\', environment: \'%s\'. Open up http://localhost:%s/ in your browser.\n',
     port, version, nodeEnv, port);
 });
