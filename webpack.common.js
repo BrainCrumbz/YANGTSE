@@ -14,10 +14,10 @@ var urls = {
 
 var projectRoot = path.resolve(__dirname);
 
-var clientRoot = path.join(projectRoot, 'src', 'client');
+var clientSrc = path.join(projectRoot, 'src', 'client');
 
 var paths = {
-  clientRoot: clientRoot,
+  clientSrc: clientSrc,
   localDevRoot: 'bin/',
   buildOutput: path.join(projectRoot, 'buildOutput'),
   serverRoot: path.join(projectRoot, 'src', 'server'),
@@ -25,10 +25,10 @@ var paths = {
   typings: path.join(projectRoot, 'typings'),
   coverage: path.join(projectRoot, 'coverage'),
 
-  mainEntry: path.join(clientRoot, 'main.ts'),
-  vendorEntry: path.join(clientRoot, 'vendor.ts'),
-  testEntry: path.join(clientRoot, 'karma-entry.js'),
-  staticFiles: path.join(clientRoot, 'static'),
+  mainEntry: path.join(clientSrc, 'main.browser.ts'),
+  vendorEntry: path.join(clientSrc, 'vendor.ts'),
+  testEntry: path.join(clientSrc, 'karma-entry.js'),
+  staticFiles: path.join(clientSrc, 'static'),
 };
 
 var files = {
@@ -42,16 +42,16 @@ var files = {
 };
 
 var patterns = {
-  testSources: path.join(paths.clientRoot, '**/*.spec.ts'),
+  testSources: path.join(paths.clientSrc, '**/*.spec.ts'),
 };
 
 var preLoaders = {
 
   tslint: {
     test: /\.ts$/,
-    loaders: ['tslint'],
+    loaders: ['tslint-loader'],
     include: [
-      paths.clientRoot,
+      paths.clientSrc,
     ],
     exclude: [
       paths.nodeModules, // skip all node modules
@@ -66,11 +66,13 @@ var preLoaders = {
 var loaders = {
 
   // all files with a `.ts` extension will be handled by `ts-loader`
+  // chained to `angular2-template-loader` so to convert template/style URLs into inlined template/styles
+  // Chaining requires 'useWebpackText' attribute for 'awesomeTypescriptLoaderOptions' in tsconfig.json
   typescript: {
     test: /\.ts$/,
-    loaders: ['ts'],
+    loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
     include: [
-      paths.clientRoot,
+      paths.clientSrc,
     ],
     exclude: [
       paths.nodeModules, // skip all node modules
@@ -83,9 +85,9 @@ var loaders = {
 
   typescriptTest: {
     test: /\.ts$/,
-    loaders: ['ts'],
+    loaders: ['awesome-typescript-loader'],
     include: [
-      paths.clientRoot,
+      paths.clientSrc,
     ],
     exclude: [
       paths.nodeModules, // skip all node modules
@@ -100,9 +102,25 @@ var loaders = {
   // NOTE: this assumes that their filename ends in '.component.css'
   componentCss: {
     test: /\.component\.css$/,
-    loaders: ['raw', 'postcss'],
+    loaders: ['raw-loader', 'postcss-loader'],
     include: [
-      paths.clientRoot,
+      paths.clientSrc,
+    ],
+    exclude: [
+      paths.nodeModules, // skip all node modules
+      paths.typings, // skip all type definitions
+      paths.buildOutput, // skip output
+      paths.serverRoot, // skip server
+    ],
+  },
+
+  // support for requiring component-scoped Sass as raw text
+  // NOTE: this assumes that their filename ends in 'component.scss'
+  componentSass: {
+    test: [/component\.scss$/, /color-picker\.scss$/],
+    loaders: ['raw-loader', 'postcss-loader', 'sass-loader'],
+    include: [
+      paths.clientSrc,
     ],
     exclude: [
       paths.nodeModules, // skip all node modules
@@ -116,9 +134,9 @@ var loaders = {
   // NOTE: this assumes that their filename don't contain `component`
   globalCss: {
     test: /^(?!.*component).*\.css$/,
-    loaders: ['style', 'css?sourceMap', 'postcss?sourceMap'],
+    loaders: ['style-loader', 'css-loader?sourceMap', 'postcss-loader?sourceMap'],
     include: [
-      paths.clientRoot,
+      paths.clientSrc,
       paths.nodeModules, // allow to import CSS from third-party libraries
     ],
     exclude: [
@@ -131,9 +149,9 @@ var loaders = {
   // support for requiring HTML as raw text
   html: {
     test: /\.html$/,
-    loaders: ['raw'],
+    loaders: ['raw-loader'],
     include: [
-      paths.clientRoot,
+      paths.clientSrc,
     ],
     exclude: [
       paths.nodeModules, // skip all node modules
@@ -151,9 +169,9 @@ var postLoaders = {
   // delay coverage until after tests are run, fixing transpiled source coverage error
   istanbul: {
     test: /\.(js|ts)$/,
-    loaders: ['istanbul-instrumenter'],
+    loaders: ['istanbul-instrumenter-loader'],
     include: [
-      paths.clientRoot,
+      paths.clientSrc,
     ],
     exclude: [
       /\.(e2e|spec)\.ts$/, // skip all test files
@@ -179,7 +197,7 @@ var postcss = [
 ];
 
 // resolve files using only those extensions
-var resolvedExtensions = ['', '.ts', '.js', '.css', '.html'];
+var resolvedExtensions = ['', '.ts', '.js'];
 
 function buildDefines() {
   var packageDef = require('./package.json');
