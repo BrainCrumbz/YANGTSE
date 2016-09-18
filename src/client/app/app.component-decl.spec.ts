@@ -1,16 +1,22 @@
 import { TestBed, inject, async, ComponentFixture } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 
 import { AppComponent } from '../app/app.component';
 
 describe('AppComponent as declaration', () => {
 
-  // TODO: not working yet
+  // TODO: needs fix for 'Failed: Uncaught (in promise): Failed to load app.component.css'
   /*
   beforeEach(async(() => {
     // refine the test module by declaring the test component
     TestBed.configureTestingModule({
-      declarations: [ AppComponent ],
+      declarations: [
+        AppComponent,
+      ],
+      imports: [
+        RouterTestingModule,
+      ],
     });
 
     TestBed.compileComponents();
@@ -19,7 +25,7 @@ describe('AppComponent as declaration', () => {
   it('should complete beforeEach', () => expect(true).toBe(true));
   */
 
-  // TODO: not working yet
+  // TODO: needs fix for 'Failed: Uncaught (in promise): Failed to load app.component.css'
   /*
   it('should create component', () => {
     // create test fixture (and component)
@@ -32,7 +38,7 @@ describe('AppComponent as declaration', () => {
   });
   */
 
-  // TODO: not working yet
+  // TODO: needs fix for 'Failed: Uncaught (in promise): Failed to load app.component.css'
   /*
   it('should set title in DOM', () => {
     const fixture = TestBed.createComponent(AppComponent);
