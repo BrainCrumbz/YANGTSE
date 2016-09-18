@@ -32,6 +32,7 @@ var config = {
     preLoaders: [
 
       common.preLoaders.tslint,
+      common.preLoaders.javascriptTest,
 
     ],
 

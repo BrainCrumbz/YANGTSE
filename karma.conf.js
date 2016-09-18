@@ -41,7 +41,7 @@ module.exports = function(config) {
       // shim entry point, to build test environment and run all spec files
       { pattern: common.paths.testEntry, included: true, watched: false },
       // the actual test spec, only to be monitored for re-runs
-      { pattern: common.patterns.testSources, included: false, watched: true },
+      ////{ pattern: common.patterns.testSources, included: false, watched: true },
     ],
 
     // explicitly list all Karma plugins to be loaded
@@ -76,6 +76,7 @@ module.exports = function(config) {
       dir: common.paths.coverage,
       reporters: [
         { type: 'text-summary' },  // log a tabled summary to console
+        { type: 'json' },  // produce a JSON document
         { type: 'html' },  // produce a HTML document
       ],
     },
@@ -124,8 +125,9 @@ module.exports = function(config) {
   // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
 
   configOverride.preprocessors[common.paths.testEntry] = [
-    'webpack', // compile TS and ES6 files
-    'sourcemap', // generate source maps
+    'coverage',
+    'webpack',  // compile TS and ES6 files
+    'sourcemap',  // generate source maps
   ];
 
   // differences when debugging while testing

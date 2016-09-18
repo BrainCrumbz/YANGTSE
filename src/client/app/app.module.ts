@@ -14,6 +14,7 @@ import { appProviders } from '../app/app.providers';
     // third-party modules
     BrowserModule,
     FormsModule,
+    // this is not currently used in sample, but probably needed in most apps
     HttpModule,
 
     appRouting,

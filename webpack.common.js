@@ -61,6 +61,18 @@ var preLoaders = {
     ],
   },
 
+  // Source map loader support for *.js files
+  // Extracts SourceMaps for source files that are added as sourceMappingURL comment.
+  javascriptTest: {
+    test: /\.js$/,
+    loaders: ['source-map-loader'],
+    exclude: [
+      // these packages have problems with their sourcemaps
+      path.join(paths.nodeModules, '@angular'),
+      path.join(paths.nodeModules, 'rxjs'),
+    ]
+  },
+
 }
 
 var loaders = {
