@@ -97,7 +97,7 @@ var loaders = {
 
   typescriptTest: {
     test: /\.ts$/,
-    loaders: ['awesome-typescript-loader'],
+    loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
     include: [
       paths.clientSrc,
     ],

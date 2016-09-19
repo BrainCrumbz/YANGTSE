@@ -6,8 +6,6 @@ import { AppComponent } from '../app/app.component';
 
 describe('AppComponent as declaration', () => {
 
-  // TODO: needs fix for 'Failed: Uncaught (in promise): Failed to load app.component.css'
-  /*
   beforeEach(async(() => {
     // refine the test module by declaring the test component
     TestBed.configureTestingModule({
@@ -23,10 +21,7 @@ describe('AppComponent as declaration', () => {
   }));
 
   it('should complete beforeEach', () => expect(true).toBe(true));
-  */
 
-  // TODO: needs fix for 'Failed: Uncaught (in promise): Failed to load app.component.css'
-  /*
   it('should create component', () => {
     // create test fixture (and component)
     const fixture = TestBed.createComponent(AppComponent);
@@ -36,10 +31,7 @@ describe('AppComponent as declaration', () => {
 
     expect(component instanceof AppComponent).toBe(true);
   });
-  */
 
-  // TODO: needs fix for 'Failed: Uncaught (in promise): Failed to load app.component.css'
-  /*
   it('should set title in DOM', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const component = fixture.componentInstance;
@@ -53,6 +45,5 @@ describe('AppComponent as declaration', () => {
     // confirm title element content
     expect(titleElement.textContent).toBe(component.title);
   });
-  */
 
 });
