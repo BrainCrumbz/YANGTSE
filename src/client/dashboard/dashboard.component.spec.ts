@@ -6,40 +6,37 @@ import { HeroService } from '../heroes/hero.service';
 
 describe('DashboardComponent', () => {
 
-  function buildRouter(): Router {
+  let fixture: ComponentFixture<DashboardComponent>;
+  let component: DashboardComponent;
+
+  beforeEach(async(() => {
+
     const router = jasmine.createSpyObj<Router>('Router', [
       'navigate',
     ]);
 
-    return <Router>router;
-  }
-
-  function buildServiceFactory() : HeroService {
     const heroService = jasmine.createSpyObj<HeroService>('HeroService', [
        'getHeroes', 'getHeroesSlowly', 'getHero']);
 
-    return <HeroService>heroService;
-  }
-
-  beforeEach(async(() => {
     // refine the test module by declaring the test component
     TestBed.configureTestingModule({
       declarations: [
         DashboardComponent,
       ],
       providers: [
-        { provide: Router, useFactory: buildRouter },
-        { provide: HeroService, useFactory: buildServiceFactory },
+        { provide: Router, useValue: router },
+        { provide: HeroService, useValue: heroService },
       ],
     });
 
-    TestBed.compileComponents();
+    TestBed.compileComponents().then(() => {
+      fixture = TestBed.createComponent(DashboardComponent);
+      component = fixture.componentInstance;
+    });
+
   }));
 
   it('should start with empty heroes', () => {
-    const fixture = TestBed.createComponent(DashboardComponent);
-    const component = fixture.componentInstance;
-
     expect(component.heroes).toEqual([]);
   });
 
