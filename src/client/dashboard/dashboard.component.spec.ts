@@ -1,57 +1,46 @@
-// TODO: not working yet
-/*
-import { TestBed, inject, ComponentFixture } from '@angular/core/testing';
-import { Location } from '@angular/common';
-import { Router, RouteRegistry, ROUTER_PRIMARY_COMPONENT } from '@angular/router-deprecated';
-import { RootRouter } from '@angular/router-deprecated/src/router';
-import { SpyLocation } from '@angular/common/testing';
+import { TestBed, inject, async, ComponentFixture } from '@angular/core/testing';
+import { Router } from '@angular/router';
 
 import { DashboardComponent } from './dashboard.component';
 import { HeroService } from '../heroes/hero.service';
-import { Hero } from '../heroes/hero';
 
 describe('DashboardComponent', () => {
 
-  let fixture: ComponentFixture<DashboardComponent>;
-  let component: DashboardComponent;
-  let heroService: HeroService;
+  function buildRouter(): Router {
+    const router = jasmine.createSpyObj<Router>('Router', [
+      'navigate',
+    ]);
 
-  function mockServiceFactory() : HeroService {
-    heroService = jasmine.createSpyObj<HeroService>('HeroService', [
+    return <Router>router;
+  }
+
+  function buildServiceFactory() : HeroService {
+    const heroService = jasmine.createSpyObj<HeroService>('HeroService', [
        'getHeroes', 'getHeroesSlowly', 'getHero']);
 
     return <HeroService>heroService;
   }
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     // refine the test module by declaring the test component
     TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ],
+      declarations: [
+        DashboardComponent,
+      ],
+      providers: [
+        { provide: Router, useFactory: buildRouter },
+        { provide: HeroService, useFactory: buildServiceFactory },
+      ],
     });
 
-    // create component and test fixture
-    fixture = TestBed.createComponent(DashboardComponent);
-
-    // get test component from the fixture
-    component = fixture.componentInstance;
-  });
-
-
-  beforeEach(() => [
-    DashboardComponent,
-    provide(HeroService, {useFactory: mockServiceFactory}),
-    RouteRegistry,
-    provide(Location, {useClass: SpyLocation}),
-    provide(ROUTER_PRIMARY_COMPONENT, {useValue: DashboardComponent}),
-    provide(Router, {useClass: RootRouter})
-  ]);
-
-  it('true is true', () => expect(true).toBe(true));
-
-  it('should have empty heroes', inject([ DashboardComponent ], (dashboard: DashboardComponent) => {
-    expect(dashboard.heroes).toEqual([]);
+    TestBed.compileComponents();
   }));
 
-});
+  it('should start with empty heroes', () => {
+    const fixture = TestBed.createComponent(DashboardComponent);
+    const component = fixture.componentInstance;
 
-*/
+    expect(component.heroes).toEqual([]);
+  });
+
+});
