@@ -1,4 +1,4 @@
-import { TestBed, inject, async, fakeAsync, ComponentFixture } from '@angular/core/testing';
+import { TestBed, inject, async, ComponentFixture } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 
@@ -52,7 +52,7 @@ describe('DashboardComponent', () => {
       { id: 2, name: 'Hero 2' },
     ];
 
-    beforeEach(fakeAsync(() => {
+    beforeEach(async(() => {
       (<jasmine.Spy>heroService.getHeroes).and.returnValue(Promise.resolve(dummyHeroes));
 
       component.ngOnInit();
@@ -61,6 +61,40 @@ describe('DashboardComponent', () => {
     it('should have heroes', () => {
       const expected = dummyHeroes.slice(1);
       expect(component.heroes).toEqual(expected);
+    });
+
+  });
+
+  describe('when service resolves (on detect changes)', () => {
+
+    const dummyHeroes: Hero[] = [
+      { id: 0, name: 'Hero 0' },
+      { id: 1, name: 'Hero 1' },
+      { id: 2, name: 'Hero 2' },
+    ];
+
+    beforeEach(async(() => {
+      (<jasmine.Spy>heroService.getHeroes).and.returnValue(Promise.resolve(dummyHeroes));
+
+      fixture.detectChanges();
+    }));
+
+    it('should set heroes in DOM', () => {
+      const expected = dummyHeroes.slice(1);
+
+      fixture.detectChanges();
+
+      const heroElements = fixture.debugElement
+        .queryAll(By.css('h4'))
+        .map(debugEl => debugEl.nativeElement);
+
+      expect(heroElements.length).toBe(expected.length);
+
+      heroElements.forEach((elem, i) => {
+        const expectedText = expected[i].name;
+
+        expect(elem.textContent).toContain(expectedText);
+      });
     });
 
   });
