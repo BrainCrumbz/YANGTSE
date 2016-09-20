@@ -43,6 +43,7 @@ var files = {
 
 var patterns = {
   testSources: path.join(paths.clientSrc, '**/*.spec.ts'),
+  appSources: path.join(paths.clientSrc, '**/!(*.spec).ts'),
 };
 
 var preLoaders = {
