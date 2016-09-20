@@ -20,10 +20,10 @@ var paths = {
   clientSrc: clientSrc,
   localDevRoot: 'bin/',
   buildOutput: path.join(projectRoot, 'buildOutput'),
-  serverRoot: path.join(projectRoot, 'src', 'server'),
   nodeModules: path.join(projectRoot, 'node_modules'),
   typings: path.join(projectRoot, 'typings'),
   coverage: path.join(projectRoot, 'coverage'),
+  serverRoot: path.join(projectRoot, 'src', 'server'),
 
   mainEntry: path.join(clientSrc, 'main.browser.ts'),
   vendorEntry: path.join(clientSrc, 'vendor.ts'),
