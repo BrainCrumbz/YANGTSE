@@ -8,8 +8,6 @@ var config = {
 
   devtool: 'inline-source-map',
 
-  debug: false,
-
   // no need to specify entry points: this configuration is used to run webpack
   // by karma, that is responsible for submitting test files as entry points
   entry: {},
@@ -39,6 +37,7 @@ var config = {
     loaders: [
 
       common.loaders.typescriptTest,
+      common.loaders.json,
       common.loaders.componentSass,
       common.loaders.componentCss,
       common.loaders.globalCss,
@@ -57,8 +56,6 @@ var config = {
 
   },
 
-  postcss: common.postcss,
-
   resolve: {
 
     cache: false,
@@ -70,6 +67,26 @@ var config = {
   plugins: [
 
     new webpack.DefinePlugin(common.buildDefines()),
+
+    // Until loaders are updated, use the LoaderOptionsPlugin to pass custom properties to third-party loaders
+    new webpack.LoaderOptionsPlugin({
+
+      // (For UglifyJsPlugin) Put loaders into minimize mode
+      debug: false,
+
+      options: {
+
+        postcss: common.postcss,
+
+      },
+    }),
+
+    // Provides context to Angular's use of System.import
+    // See https://github.com/angular/angular/issues/11580
+    new webpack.ContextReplacementPlugin(
+      common.patterns.angularContext,
+      common.paths.clientSrc
+    ),
 
   ],
 

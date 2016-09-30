@@ -44,6 +44,8 @@ var files = {
 var patterns = {
   testSources: path.join(paths.clientSrc, '**/*.spec.ts'),
   appSources: path.join(paths.clientSrc, '**/!(*.spec).ts'),
+  // The (\\|\/) piece accounts for path separators in *nix and Windows
+  angularContext: /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
 };
 
 var preLoaders = {
@@ -108,6 +110,22 @@ var loaders = {
       paths.buildOutput, // skip output
       paths.serverRoot, // skip server
       /\.(e2e|async)\.ts$/, // skip end-to-end test and async TS files
+    ],
+  },
+
+  json: {
+    test: /\.json$/,
+    loaders: ['json-loader'],
+    include: [
+      paths.clientSrc,
+      // See https://github.com/webpack/webpack/issues/592
+      paths.nodeModules, // consider all node modules
+    ],
+    exclude: [
+      paths.typings, // skip all type definitions
+      paths.buildOutput, // skip output
+      paths.serverRoot, // skip server
+      /\.(spec|e2e|async)\.ts$/, // skip all test and async TS files
     ],
   },
 
@@ -210,7 +228,7 @@ var postcss = [
 ];
 
 // resolve files using only those extensions
-var resolvedExtensions = ['', '.ts', '.js'];
+var resolvedExtensions = ['.ts', '.js', '.json'];
 
 function buildDefines() {
   var packageDef = require('./package.json');

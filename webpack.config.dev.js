@@ -21,9 +21,6 @@ var config = {
   // 'cheap-module-eval-source-map' is quicker, but breakpoints don't work
   devtool: 'source-map',
 
-  // Switch loaders to debug mode
-  debug: true,
-
   // Cache generated modules and chunks to improve performance in incremental builds
   cache: true,
 
@@ -71,6 +68,7 @@ var config = {
     loaders: [
 
       common.loaders.typescript,
+      common.loaders.json,
       common.loaders.componentSass,
       common.loaders.componentCss,
       common.loaders.globalCss,
@@ -83,8 +81,6 @@ var config = {
 
   },
 
-  postcss: common.postcss,
-
   resolve: {
 
     extensions: common.resolvedExtensions,
@@ -94,6 +90,26 @@ var config = {
   plugins: [
 
     new webpack.DefinePlugin(common.buildDefines()),
+
+    // Until loaders are updated, use the LoaderOptionsPlugin to pass custom properties to third-party loaders
+    new webpack.LoaderOptionsPlugin({
+
+      // (For UglifyJsPlugin) Put loaders into debug mode
+      debug: true,
+
+      options: {
+
+        postcss: common.postcss,
+
+      },
+    }),
+
+    // Provides context to Angular's use of System.import
+    // See https://github.com/angular/angular/issues/11580
+    new webpack.ContextReplacementPlugin(
+      common.patterns.angularContext,
+      common.paths.clientSrc
+    ),
 
     // Allow setting option in tsconfig, so that type checking happens in a separate process and webpack doesn't have to wait
     new ForkCheckerPlugin(),

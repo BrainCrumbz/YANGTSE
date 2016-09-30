@@ -10,8 +10,6 @@ var config = {
   // Source maps are completely regenerated for each chunk at each build
   devtool: 'source-map',
 
-  debug: false,
-
   // Set base directory for resolving entry points
   context: common.paths.clientSrc,
 
@@ -46,6 +44,7 @@ var config = {
     loaders: [
 
       common.loaders.typescript,
+      common.loaders.json,
       common.loaders.componentSass,
       common.loaders.componentCss,
       common.loaders.globalCss,
@@ -58,8 +57,6 @@ var config = {
 
   },
 
-  postcss: common.postcss,
-
   resolve: {
 
     extensions: common.resolvedExtensions,
@@ -69,6 +66,26 @@ var config = {
   plugins: [
 
     new webpack.DefinePlugin(common.buildDefines()),
+
+    // Until loaders are updated, use the LoaderOptionsPlugin to pass custom properties to third-party loaders
+    new webpack.LoaderOptionsPlugin({
+
+      // (For UglifyJsPlugin) Put loaders into minimize mode
+      debug: false,
+
+      options: {
+
+        postcss: common.postcss,
+
+      },
+    }),
+
+    // Provides context to Angular's use of System.import
+    // See https://github.com/angular/angular/issues/11580
+    new webpack.ContextReplacementPlugin(
+      common.patterns.angularContext,
+      common.paths.clientSrc
+    ),
 
     new webpack.optimize.CommonsChunkPlugin({
       name: ['main', 'vendor'],
