@@ -37,7 +37,7 @@ var config = {
 
     preLoaders: [
 
-      common.preLoaders.tslint,
+      common.loaders.pre.tslint,
 
     ],
 

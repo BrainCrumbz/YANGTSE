@@ -29,8 +29,8 @@ var config = {
 
     preLoaders: [
 
-      common.preLoaders.tslint,
-      common.preLoaders.javascriptTest,
+      common.loaders.pre.tslint,
+      common.loaders.pre.javascriptTest,
 
     ],
 
@@ -47,7 +47,8 @@ var config = {
 
     postLoaders: [
 
-      common.postLoaders.istanbul,
+      // TODO enable when it is not scrambling source maps
+      //common.loaders.post.istanbul,
 
     ],
 

@@ -48,37 +48,37 @@ var patterns = {
   angularContext: /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
 };
 
-var preLoaders = {
-
-  tslint: {
-    test: /\.ts$/,
-    loaders: ['tslint-loader'],
-    include: [
-      paths.clientSrc,
-    ],
-    exclude: [
-      paths.nodeModules, // skip all node modules
-      paths.typings, // skip all type definitions
-      paths.buildOutput, // skip output
-      paths.serverRoot, // skip server
-    ],
-  },
-
-  // Source map loader support for *.js files
-  // Extracts SourceMaps for source files that are added as sourceMappingURL comment.
-  javascriptTest: {
-    test: /\.js$/,
-    loaders: ['source-map-loader'],
-    exclude: [
-      // these packages have problems with their sourcemaps
-      path.join(paths.nodeModules, '@angular'),
-      path.join(paths.nodeModules, 'rxjs'),
-    ]
-  },
-
-}
-
 var loaders = {
+
+  pre: {
+
+    tslint: {
+      test: /\.ts$/,
+      loaders: ['tslint-loader'],
+      include: [
+        paths.clientSrc,
+      ],
+      exclude: [
+        paths.nodeModules, // skip all node modules
+        paths.typings, // skip all type definitions
+        paths.buildOutput, // skip output
+        paths.serverRoot, // skip server
+      ],
+    },
+
+    // Source map loader support for *.js files
+    // Extracts SourceMaps for source files that are added as sourceMappingURL comment.
+    javascriptTest: {
+      test: /\.js$/,
+      loaders: ['source-map-loader'],
+      exclude: [
+        // these packages have problems with their sourcemaps
+        path.join(paths.nodeModules, '@angular'),
+        path.join(paths.nodeModules, 'rxjs'),
+      ]
+    },
+
+  },
 
   // all files with a `.ts` extension will be handled by `ts-loader`
   // chained to `angular2-template-loader` so to convert template/style URLs into inlined template/styles
@@ -192,25 +192,25 @@ var loaders = {
     ],
   },
 
-};
+  post: {
 
-var postLoaders = {
+    // instrument only code that isn't test or third-party
+    // delay coverage until after tests are run, fixing transpiled source coverage error
+    istanbul: {
+      test: /\.(js|ts)$/,
+      loaders: ['istanbul-instrumenter-loader'],
+      include: [
+        paths.clientSrc,
+      ],
+      exclude: [
+        /\.(e2e|spec)\.ts$/, // skip all test files
+        paths.nodeModules, // skip all node modules
+        paths.typings, // skip all type definitions
+        paths.buildOutput, // skip output
+        paths.serverRoot, // skip server
+      ],
+    },
 
-  // instrument only code that isn't test or third-party
-  // delay coverage until after tests are run, fixing transpiled source coverage error
-  istanbul: {
-    test: /\.(js|ts)$/,
-    loaders: ['istanbul-instrumenter-loader'],
-    include: [
-      paths.clientSrc,
-    ],
-    exclude: [
-      /\.(e2e|spec)\.ts$/, // skip all test files
-      paths.nodeModules, // skip all node modules
-      paths.typings, // skip all type definitions
-      paths.buildOutput, // skip output
-      paths.serverRoot, // skip server
-    ],
   },
 
 };
@@ -245,9 +245,7 @@ var common = {
   paths: paths,
   files: files,
   patterns: patterns,
-  preLoaders: preLoaders,
   loaders: loaders,
-  postLoaders: postLoaders,
   noParse: noParse,
   postcss: postcss,
   resolvedExtensions: resolvedExtensions,
