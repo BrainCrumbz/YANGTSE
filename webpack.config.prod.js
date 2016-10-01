@@ -132,11 +132,9 @@ var config = {
       */
     }),
 
-    // Get the smallest module/chunk id length for often used modules/chunks
-    new webpack.optimize.OccurenceOrderPlugin(true),
-
     // Do not duplicate modules in the output
-    new webpack.optimize.DedupePlugin(),
+    // TODO enable again when this plugin is fixed. See https://github.com/webpack/webpack/issues/2644
+    //new webpack.optimize.DedupePlugin(),
 
     // Only emit files when there are no errors
     new webpack.NoErrorsPlugin(),
