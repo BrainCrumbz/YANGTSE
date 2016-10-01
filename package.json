@@ -23,7 +23,6 @@
       "serve-dev": "parallelshell \"node src/server/server.js\" \"set DEV_MODE=reload&&webpack-dev-server --config ./webpack.config.dev.js\" ",
       "serve-watch": "parallelshell \"node src/server/server.js\" \"npm run build-watch\" ",
       "serve-prod": "set NODE_ENV=production&& node src/server/server.js",
-        "preserve-prod": "npm run build-prod",
 
     "test": "karma start",
       "test-debug": "set TEST_MODE=debug&&karma start",

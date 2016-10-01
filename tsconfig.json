@@ -5,12 +5,14 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "skipDefaultLibCheck": true,
     "preserveConstEnums": true,
     "removeComments": false,
     "noImplicitAny": false,
+    "strictNullChecks": false,
+    "pretty": true,
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
-    "strictNullChecks": false,
     "lib": [
       "dom",
       "es6"
