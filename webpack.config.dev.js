@@ -168,19 +168,26 @@ if (devMode == 'reload') {
 
     port: common.ports.reload,
 
+    // webpack dev server will serve bundles from memory at this relative URL path
     publicPath: common.urls.public,
 
+    // webpack dev server will serve files from this directory
     contentBase: common.paths.localDevRoot,
 
     proxy: {
       // proxied to backend web server
-      '/*' : defaultServerUrl,
+      '/' : {
+        target: defaultServerUrl,
+        secure: false,
+        prependPath: false,
+      },
     },
+
+    // For automatic page refresh, enable the 'webpack-dev-server/client?...' entry
+    inline: true,
 
     // Enable Hot Module Replacement
     hot: true,
-
-    inline: true,
 
     // Set this as true if you want to access dev server from arbitrary url.
     // This is handy if you are using a html5 router.

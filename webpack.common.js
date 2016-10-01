@@ -18,7 +18,7 @@ var clientSrc = path.join(projectRoot, 'src', 'client');
 
 var paths = {
   clientSrc: clientSrc,
-  localDevRoot: 'bin/',
+  localDevRoot: 'buildOutput/',
   buildOutput: path.join(projectRoot, 'buildOutput'),
   nodeModules: path.join(projectRoot, 'node_modules'),
   typings: path.join(projectRoot, 'typings'),
