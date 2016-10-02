@@ -99,13 +99,13 @@ var config = {
 
       // [prod]
       beautify: false,
-      /* disable mangling because of a bug in angular2 beta.X
-       * TODO enable mangling as soon as angular2 fixes that
       mangle: {
         screw_ie8 : true,
+        keep_fnames: true,
       },
-      */
+      /* To disable mangling for any reason, replace with:
       mangle: false,
+      */
       compress: {
         warnings: false,
         screw_ie8: true,
