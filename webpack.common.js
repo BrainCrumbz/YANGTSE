@@ -1,6 +1,9 @@
 var path = require('path');
 var autoprefixer = require('autoprefixer');
 
+// NOTE: set to true to enable AOT, false to disable it
+var isAot = false;
+
 var ports = {
   // local dev server port
   default: 8081,
@@ -20,12 +23,15 @@ var paths = {
   clientSrc: clientSrc,
   localDevRoot: 'buildOutput/',
   buildOutput: path.join(projectRoot, 'buildOutput'),
+  codegen: path.join(projectRoot, 'codegen'),
   nodeModules: path.join(projectRoot, 'node_modules'),
   typings: path.join(projectRoot, 'typings'),
   coverage: path.join(projectRoot, 'coverage'),
   serverRoot: path.join(projectRoot, 'src', 'server'),
 
-  mainEntry: path.join(clientSrc, 'main.browser.ts'),
+  mainEntry: isAot
+    ? path.join(clientSrc, 'main.browser-aot.ts')
+    : path.join(clientSrc, 'main.browser.ts'),
   vendorEntry: path.join(clientSrc, 'vendor.ts'),
   testEntry: path.join(clientSrc, 'karma-entry.js'),
   staticFiles: path.join(clientSrc, 'static'),
@@ -62,6 +68,7 @@ var loaders = {
         paths.nodeModules, // skip all node modules
         paths.typings, // skip all type definitions
         paths.buildOutput, // skip output
+        paths.codegen, // skip (AOT) generated code
         paths.serverRoot, // skip server
       ],
     },
@@ -88,6 +95,7 @@ var loaders = {
     loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
     include: [
       paths.clientSrc,
+      paths.codegen,
     ],
     exclude: [
       paths.nodeModules, // skip all node modules
@@ -108,6 +116,7 @@ var loaders = {
       paths.nodeModules, // skip all node modules
       paths.typings, // skip all type definitions
       paths.buildOutput, // skip output
+      paths.codegen, // skip (AOT) generated code
       paths.serverRoot, // skip server
       /\.(e2e|async)\.ts$/, // skip end-to-end test and async TS files
     ],
@@ -124,6 +133,7 @@ var loaders = {
     exclude: [
       paths.typings, // skip all type definitions
       paths.buildOutput, // skip output
+      paths.codegen, // skip (AOT) generated code
       paths.serverRoot, // skip server
       /\.(spec|e2e|async)\.ts$/, // skip all test and async TS files
     ],
@@ -141,6 +151,7 @@ var loaders = {
       paths.nodeModules, // skip all node modules
       paths.typings, // skip all type definitions
       paths.buildOutput, // skip output
+      paths.codegen, // skip (AOT) generated code
       paths.serverRoot, // skip server
     ],
   },
@@ -157,6 +168,7 @@ var loaders = {
       paths.nodeModules, // skip all node modules
       paths.typings, // skip all type definitions
       paths.buildOutput, // skip output
+      paths.codegen, // skip (AOT) generated code
       paths.serverRoot, // skip server
     ],
   },
@@ -173,6 +185,7 @@ var loaders = {
     exclude: [
       paths.typings, // skip all type definitions
       paths.buildOutput, // skip output
+      paths.codegen, // skip (AOT) generated code
       paths.serverPaths, // skip server
     ],
   },
@@ -188,6 +201,7 @@ var loaders = {
       paths.nodeModules, // skip all node modules
       paths.typings, // skip all type definitions
       paths.buildOutput, // skip output
+      paths.codegen, // skip (AOT) generated code
       paths.serverRoot, // skip server
     ],
   },
@@ -207,6 +221,7 @@ var loaders = {
         paths.nodeModules, // skip all node modules
         paths.typings, // skip all type definitions
         paths.buildOutput, // skip output
+        paths.codegen, // skip (AOT) generated code
         paths.serverRoot, // skip server
       ],
     },

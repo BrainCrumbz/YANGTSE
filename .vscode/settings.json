@@ -6,6 +6,7 @@
 
   "files.exclude": {
     "**/buildOutput": true,
+    "**/codegen": true,
     "**/coverage": true,
     "**/node_modules": true,
     "**/typings": true,
@@ -13,7 +14,7 @@
     "**/*.js": { "when": "$(basename).ts" },
     "**/*.js.map": true
   },
-  
+
   "typescript.tsdk": "node_modules/typescript/lib"
-  
+
 }

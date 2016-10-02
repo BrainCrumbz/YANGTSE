@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -13,21 +13,31 @@
     "pretty": true,
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
+    "noEmit": true,
     "lib": [
       "dom",
       "es6"
     ]
   },
   "exclude": [
+    "src/client/**/*.e2e.ts",
+    "src/client/**/*.spec.ts",
+    "src/client/main.browser-aot.ts",
     "src/server",
     "buildOutput",
     "codegen",
     "coverage",
     "node_modules",
+    "typings/globals",
     "typings/index.d.ts"
   ],
+  "angularCompilerOptions": {
+   "genDir": "codegen",
+   "skipMetadataEmit" : true
+  },
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,
+    "useCache": true,
     "useWebpackText": true
   },
   "compileOnSave": false,
