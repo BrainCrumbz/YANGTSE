@@ -1,7 +1,9 @@
 var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var buildCommon = require('./webpack.common.js');
-var common = buildCommon();
+var common = buildCommon({
+  isAot: true,
+});
 
 // ensure production environment
 process.env.NODE_ENV = 'production';

@@ -1,9 +1,6 @@
 var path = require('path');
 var autoprefixer = require('autoprefixer');
 
-// NOTE: set to true to enable AOT, false to disable it
-var isAot = false;
-
 var ports = {
   // local dev server port
   default: 8081,
@@ -19,7 +16,15 @@ var projectRoot = path.resolve(__dirname);
 
 var clientSrc = path.join(projectRoot, 'src', 'client');
 
-function buildCommon() {
+var defaultOptions = {
+  isAot: false,
+};
+
+function buildCommon(passedOptions) {
+
+  var options = Object.assign({}, defaultOptions, passedOptions);
+
+  var isAot = options.isAot;
 
   var paths = {
     clientSrc: clientSrc,
@@ -34,7 +39,9 @@ function buildCommon() {
     mainEntry: isAot
       ? path.join(clientSrc, 'main.browser-aot.ts')
       : path.join(clientSrc, 'main.browser.ts'),
-    vendorEntry: path.join(clientSrc, 'vendor.ts'),
+    vendorEntry: isAot
+      ? path.join(clientSrc, 'vendor-aot.ts')
+      : path.join(clientSrc, 'vendor.ts'),
     testEntry: path.join(clientSrc, 'karma-entry.js'),
     staticFiles: path.join(clientSrc, 'static'),
   };

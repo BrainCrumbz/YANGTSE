@@ -8,15 +8,7 @@ import 'reflect-metadata';
 import 'zone.js/dist/zone.min';
 
 // Angular 2
-// import Angular 2 here, so to have it as common dependencies in vendor bundle
-import '@angular/common';
-import '@angular/compiler';
-import '@angular/core';
-import '@angular/forms';
-import '@angular/http';
-import '@angular/platform-browser';
-import '@angular/platform-browser-dynamic';
-import '@angular/router';
+// When doing AOT build, do *NOT* import any Angular 2 module here. Let compiler pick needed modules
 
 // RxJS
 // avoid importing the whole RxJS library here. Although more tedious, look for all
