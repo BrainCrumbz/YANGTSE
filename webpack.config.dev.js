@@ -2,7 +2,8 @@ var url = require('url');
 var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
-var common = require('./webpack.common.js');
+var buildCommon = require('./webpack.common.js');
+var common = buildCommon();
 
 // ensure development environment
 process.env.NODE_ENV = 'development';

@@ -1,5 +1,6 @@
 var webpack = require('webpack');
-var common = require('./webpack.common.js');
+var buildCommon = require('./webpack.common.js');
+var common = buildCommon();
 
 // ensure test environment
 process.env.NODE_ENV = 'test';

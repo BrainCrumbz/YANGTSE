@@ -1,4 +1,5 @@
-var common = require('./webpack.common.js');
+var buildCommon = require('./webpack.common.js');
+var common = buildCommon();
 var testWebpackConfig = require('./webpack.config.test.js');
 
 // detect testing mode from environment
