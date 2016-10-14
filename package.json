@@ -4,22 +4,22 @@
   "description": "Yet Another aNGular Two Starter, with Express.js this time",
   "main": "src/server/server.js",
   "scripts": {
-    "clean": "rimraf ./buildOutput/*",
+    "clean": "rimraf ./buildOutput/* ./codegen/*",
       "clean-deep": "npm cache clean && rimraf ./node_modules ./typings ./buildOutput",
 
     "postinstall": "npm run install-typings",
       "install-typings": "typings install",
+
+    "compile": "npm run compile-prod",
+      "compile-prod": "ngc -p tsconfig-aot.json",
+        "precompile-prod": "npm run clean",
 
     "build": "npm run build-dev",
       "build-dev": "webpack --config ./webpack.config.dev.js --display-error-details --progress --profile --colors",
         "prebuild-dev": "npm run clean",
       "build-watch": "npm run build-dev -- --watch",
       "build-prod": "webpack --config ./webpack.config.prod.js --display-error-details --progress --profile --colors",
-        "prebuild-prod": "npm run clean",
-
-    "compile": "npm run compile-prod",
-      "compile-prod": "ngc -p tsconfig-aot.json",
-        "precompile-prod": "npm run clean",
+        "prebuild-prod": "npm run compile-prod",
 
     "start": "npm run serve",
 

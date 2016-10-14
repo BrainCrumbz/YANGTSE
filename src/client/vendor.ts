@@ -9,6 +9,7 @@ import 'zone.js/dist/zone.min';
 
 // Angular 2
 // import Angular 2 here, so to have it as common dependencies in vendor bundle
+// TODO disable all this when doing AOT build
 import '@angular/common';
 import '@angular/compiler';
 import '@angular/core';
