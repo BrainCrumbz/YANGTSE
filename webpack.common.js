@@ -170,7 +170,19 @@ var loaders = {
   // NOTE: this assumes that their filename don't contain `component`
   globalCss: {
     test: /^(?!.*component).*\.css$/,
-    loaders: ['style-loader', 'css-loader?sourceMap', 'postcss-loader?sourceMap'],
+    loaders: [{
+      loader: 'style-loader',
+    },{
+      loader: 'css-loader',
+      options: {
+        sourceMap: true,
+      },
+    }, {
+      loader: 'postcss-loader',
+      options: {
+        sourceMap: true,
+      },
+    }],
     include: [
       paths.clientSrc,
       paths.nodeModules, // allow to import CSS from third-party libraries
