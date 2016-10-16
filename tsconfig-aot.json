@@ -15,7 +15,8 @@
     "allowSyntheticDefaultImports": true,
     "noEmit": true,
     "types": [
-      "core-js"
+      "core-js",
+      "express"
     ]
   },
   "exclude": [
