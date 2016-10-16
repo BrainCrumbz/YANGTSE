@@ -19,7 +19,8 @@
     ],
     "types": [
       "core-js",
-      "express"
+      "express",
+      "jasmine"
     ]
   },
   "exclude": [
