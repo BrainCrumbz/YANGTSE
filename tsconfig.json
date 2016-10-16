@@ -16,6 +16,9 @@
     "lib": [
       "dom",
       "es6"
+    ],
+    "types": [
+      "core-js"
     ]
   },
   "exclude": [
