@@ -5,10 +5,7 @@
   "main": "src/server/server.js",
   "scripts": {
     "clean": "rimraf ./buildOutput/* ./codegen/*",
-      "clean-deep": "npm cache clean && rimraf ./node_modules ./typings ./buildOutput",
-
-    "postinstall": "npm run install-typings",
-      "install-typings": "typings install",
+      "clean-deep": "npm cache clean && rimraf ./node_modules ./buildOutput",
 
     "compile": "npm run compile-prod",
       "compile-prod": "ngc -p tsconfig-aot.json",
@@ -113,7 +110,6 @@
     "tslint": "^3.15.1",
     "tslint-loader": "^2.1.5",
     "typescript": "^2.0.3",
-    "typings": "^1.4.0",
     "webpack": "2.1.0-beta.22",
     "webpack-bundle-size-analyzer": "^2.0.1",
     "webpack-dev-server": "2.1.0-beta.4"

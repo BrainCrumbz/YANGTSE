@@ -28,8 +28,7 @@
     "buildOutput",
     "codegen",
     "coverage",
-    "node_modules",
-    "typings/index.d.ts"
+    "node_modules"
   ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,

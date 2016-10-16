@@ -27,9 +27,7 @@
     "buildOutput",
     "codegen",
     "coverage",
-    "node_modules",
-    "typings/globals",
-    "typings/index.d.ts"
+    "node_modules"
   ],
   "angularCompilerOptions": {
    "genDir": "codegen",
