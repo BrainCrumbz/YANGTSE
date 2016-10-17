@@ -25,7 +25,6 @@ var paths = {
   coverage: path.join(projectRoot, 'coverage'),
   serverRoot: path.join(projectRoot, 'src', 'server'),
 
-  testEntry: path.join(clientSrc, 'karma-entry.js'),
   staticFiles: path.join(clientSrc, 'static'),
 };
 
