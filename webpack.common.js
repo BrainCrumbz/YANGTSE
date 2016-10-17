@@ -183,7 +183,7 @@ var loaders = {
     exclude: [
       paths.buildOutput, // skip output
       paths.codegen, // skip (AOT) generated code
-      paths.serverPaths, // skip server
+      paths.serverRoot, // skip server
     ],
   },
 
