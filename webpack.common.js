@@ -165,11 +165,11 @@ var loaders = {
   // NOTE: this assumes that their filename don't contain `component`
   globalCss: {
     test: /^(?!.*component).*\.css$/,
-    // TODO disable sourceMap until `TypeError: Path must be a string. Received undefined` error is fixed
     /*
-    loaders: ['style-loader', 'css-loader?sourceMap', 'postcss-loader?sourceMap'],
-    */
+    // TODO disable sourceMap until `TypeError: Path must be a string. Received undefined` error is fixed
     loaders: ['style-loader', 'css-loader', 'postcss-loader'],
+    */
+    loaders: ['style-loader', 'css-loader?sourceMap', 'postcss-loader?sourceMap'],
     include: [
       paths.clientSrc,
       paths.nodeModules, // allow to import CSS from third-party libraries
