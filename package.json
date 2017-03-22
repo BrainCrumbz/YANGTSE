@@ -5,18 +5,31 @@
   "main": "src/server/server.js",
   "scripts": {
     "clean": "rimraf ./buildOutput/* ./codegen/*",
-      "clean-deep": "npm cache clean && rimraf ./node_modules ./buildOutput",
+    "clean-deep": "npm cache clean && rimraf ./node_modules/* ./buildOutput/*",
+
+    "lint": "tslint ./client/**/*.ts",
 
     "compile": "npm run compile-prod",
       "compile-prod": "ngc -p tsconfig-aot.json",
-        "precompile-prod": "npm run clean",
+
+    "bundle": "npm run bundle-dev",
+      "bundle-dev": "webpack --config ./webpack.config.dev.js --display-error-details --progress --profile --colors",
+        "prebundle-dev":  "npm run lint",
+      "bundle-watch": "npm run bundle-dev -- --watch",
+      "bundle-prod": "webpack --config ./webpack.config.prod.js --display-error-details --progress --profile --colors",
+        "prebundle-prod": "npm run lint && npm run compile-prod",
 
     "build": "npm run build-dev",
-      "build-dev": "webpack --config ./webpack.config.dev.js --display-error-details --progress --profile --colors",
-        "prebuild-dev": "npm run clean",
-      "build-watch": "npm run build-dev -- --watch",
-      "build-prod": "webpack --config ./webpack.config.prod.js --display-error-details --progress --profile --colors",
-        "prebuild-prod": "npm run compile-prod",
+      "build-dev":  "npm run bundle-dev",
+        "prebuild-dev":  "npm run clean",
+      "build-watch": "npm run bundle-watch",
+        "prebuild-watch-dev": "npm run clean",
+      "build-prod": "npm run bundle-prod",
+        "prebuild-prod": "npm run clean",
+
+    "stats": "webpack --config ./webpack.config.prod.js --json > json-prod.stats",
+      "prestats": "npm run compile-prod",
+      "poststats": "webpack-bundle-analyzer json-prod.stats buildOutput",
 
     "start": "npm run serve",
 
