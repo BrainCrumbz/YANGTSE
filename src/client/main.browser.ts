@@ -11,4 +11,7 @@ console.log('Client running, version \'%s\', environment: \'%s\'...', VERSION, N
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .then(_ => console.log('Application successfully bootstrapped.'))
-  .catch(err => console.error('Error while bootstrapping application. %s', err));
+  .catch(err => {
+    console.error('Error while bootstrapping application:');
+    console.error(err);
+  });

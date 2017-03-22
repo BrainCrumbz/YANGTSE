@@ -11,4 +11,7 @@ console.log('Client running, version \'%s\', environment: \'%s\', AOT build...',
 
 platformBrowser().bootstrapModuleFactory(AppModuleNgFactory)
   .then(_ => console.log('Application successfully bootstrapped.'))
-  .catch(err => console.error('Error while bootstrapping application. %s', err));
+  .catch(err => {
+    console.error('Error while bootstrapping application:');
+    console.error(err);
+  });
