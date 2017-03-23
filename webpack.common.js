@@ -25,6 +25,12 @@ var paths = {
   coverage: path.join(projectRoot, 'coverage'),
   serverRoot: path.join(projectRoot, 'src', 'server'),
 
+  mainEntryJit: path.join(clientSrc, 'main.browser-jit.ts'),
+  vendorEntryJit: path.join(clientSrc, 'vendor-jit.ts'),
+
+  mainEntryAot: path.join(clientSrc, 'main.browser-aot.ts'),
+  vendorEntryAot: path.join(clientSrc, 'vendor-aot.ts'),
+
   testEntry: path.join(clientSrc, 'karma-entry.js'),
   staticFiles: path.join(clientSrc, 'static'),
 };
@@ -80,9 +86,8 @@ var loaders = {
 
   },
 
-  // all files with a `.ts` extension will be handled by `ts-loader`
-  // chained to `angular2-template-loader` so to convert template/style URLs into inlined template/styles
-  // Chaining requires 'useWebpackText' attribute for 'awesomeTypescriptLoaderOptions' in tsconfig.json
+  // all `.ts` files will be compiled through tsc by `awesome-typescript-loader`.
+  // `angular2-template-loader` converts template/style URLs into inlined template/styles.
   typescript: {
     test: /\.ts$/,
     loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
@@ -244,42 +249,17 @@ function buildDefines() {
   };
 }
 
-var defaultOptions = {
-  isAot: false,
+var common = {
+  urls: urls,
+  ports: ports,
+  paths: paths,
+  files: files,
+  patterns: patterns,
+  loaders: loaders,
+  noParse: noParse,
+  postcss: postcss,
+  resolvedExtensions: resolvedExtensions,
+  buildDefines: buildDefines,
 };
 
-function buildCommon(passedOptions) {
-
-  var options = Object.assign({}, defaultOptions, passedOptions);
-
-  var isAot = options.isAot;
-
-  var customPaths = Object.assign({}, paths, {
-
-    mainEntry: isAot
-      ? path.join(clientSrc, 'main.browser-aot.ts')
-      : path.join(clientSrc, 'main.browser-jit.ts'),
-
-    vendorEntry: isAot
-      ? path.join(clientSrc, 'vendor-aot.ts')
-      : path.join(clientSrc, 'vendor-jit.ts'),
-
-  });
-
-  var common = {
-    urls: urls,
-    ports: ports,
-    paths: customPaths,
-    files: files,
-    patterns: patterns,
-    loaders: loaders,
-    noParse: noParse,
-    postcss: postcss,
-    resolvedExtensions: resolvedExtensions,
-    buildDefines: buildDefines,
-  };
-
-  return common;
-}
-
-module.exports = buildCommon;
+module.exports = common;

@@ -1,10 +1,8 @@
 var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var awesomeTs = require('awesome-typescript-loader');
-var buildCommon = require('./webpack.common.js');
+var common = require('./webpack.common.js');
 var url = require('url');
-
-var common = buildCommon();
 
 // ensure development environment
 process.env.NODE_ENV = 'development';
@@ -31,10 +29,10 @@ var config = {
 
   entry: {
 
-    'vendor': common.paths.vendorEntry,
+    'vendor': common.paths.vendorEntryJit,
 
     // Client application main entry point
-    'main': common.paths.mainEntry,
+    'main': common.paths.mainEntryJit,
 
   },
 

@@ -1,11 +1,7 @@
 var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var awesomeTs = require('awesome-typescript-loader');
-var buildCommon = require('./webpack.common.js');
-
-var common = buildCommon({
-  isAot: true,
-});
+var common = require('./webpack.common.js');
 
 // ensure production environment
 process.env.NODE_ENV = 'production';
@@ -21,9 +17,9 @@ var config = {
   // Client application only, no dev server
   entry: {
 
-    'vendor': common.paths.vendorEntry,
+    'vendor': common.paths.vendorEntryAot,
 
-    'main': common.paths.mainEntry,
+    'main': common.paths.mainEntryAot,
 
   },
 
