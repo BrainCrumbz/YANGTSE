@@ -89,9 +89,30 @@ var loaders = {
 
   // all `.ts` files will be compiled through tsc by `awesome-typescript-loader`.
   // `angular2-template-loader` converts template/style URLs into inlined template/styles.
-  typescript: {
+  typescriptJit: {
     test: /\.ts$/,
-    loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
+    loaders: [
+      'awesome-typescript-loader',
+      'angular2-template-loader'
+    ],
+    include: [
+      absPaths.clientSrc,
+    ],
+    exclude: [
+      absPaths.nodeModules, // skip all node modules
+      absPaths.buildOutput, // skip output
+      absPaths.codegen, // skip (AOT) generated code
+      absPaths.serverRoot, // skip server
+      /\.(spec|e2e|async)\.ts$/, // skip all test and async TS files
+    ],
+  },
+
+  typescriptAot: {
+    test: /\.ts$/,
+    loaders: [
+      'awesome-typescript-loader?configFileName=./tsconfig-aot.json',
+      'angular2-template-loader?aot=true&genDir=./codegen&debug=false'
+    ],
     include: [
       absPaths.clientSrc,
       absPaths.codegen, // include (AOT) generated code

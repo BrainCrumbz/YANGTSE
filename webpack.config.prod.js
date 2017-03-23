@@ -42,7 +42,7 @@ var config = {
       common.loaders.pre.tslint,
 
       // Loaders
-      common.loaders.typescript,
+      common.loaders.typescriptAot,
       common.loaders.json,
       common.loaders.componentSass,
       common.loaders.componentCss,
