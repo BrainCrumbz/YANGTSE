@@ -30,16 +30,16 @@ module.exports = function(config) {
 
     // files to exclude
     exclude: [
-      common.paths.nodeModules, // skip all node modules
-      common.paths.buildOutput, // skip output
-      common.paths.serverRoot, // skip server
+      common.absPaths.nodeModules, // skip all node modules
+      common.absPaths.buildOutput, // skip output
+      common.absPaths.serverRoot, // skip server
     ],
 
     // list of files/patterns to load in the browser, serve or watch. Order is important.
     // with webpack plugin enabled, each file acts as entry point for webpack configuration
     files: [
       // shim entry point, to build test environment and run all spec files
-      { pattern: common.paths.testEntry, included: true, watched: false },
+      { pattern: common.absPaths.testEntry, included: true, watched: false },
       // the actual test spec, only to be monitored for re-runs
       ////{ pattern: common.patterns.testSources, included: false, watched: true },
     ],
@@ -77,7 +77,7 @@ module.exports = function(config) {
     },
 
     coverageReporter: {
-      dir: common.paths.coverage,
+      dir: common.absPaths.coverage,
       reporters: [
         { type: 'text-summary' },  // log a tabled summary to console
         // Add JSON output to enable webpack-bundle-size-analyzer
@@ -129,7 +129,7 @@ module.exports = function(config) {
   // Preprocess matching files before serving them to the browser
 
   // compile test files and generate maps
-  configOverride.preprocessors[common.paths.testEntry] = [
+  configOverride.preprocessors[common.absPaths.testEntry] = [
     'webpack',  // compile TS and ES6 files
     'sourcemap',  // generate source maps
   ];

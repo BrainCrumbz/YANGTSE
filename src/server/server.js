@@ -21,7 +21,7 @@ var isProduction = nodeEnv === 'production';
 
 var serverPort = userEnv.PORT || webpackCommon.ports.default;
 
-var clientOutputPath = webpackCommon.paths.buildOutput;
+var clientOutputPath = webpackCommon.absPaths.buildOutput;
 
 var staticFilesPath = path.resolve(__dirname, 'public');
 var viewRoot = path.resolve(__dirname, 'areas');

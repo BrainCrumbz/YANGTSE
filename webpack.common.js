@@ -16,9 +16,8 @@ var projectRoot = path.resolve(__dirname);
 
 var clientSrc = path.join(projectRoot, 'src', 'client');
 
-var paths = {
+var absPaths = {
   clientSrc: clientSrc,
-  localDevRoot: 'buildOutput/',
   buildOutput: path.join(projectRoot, 'buildOutput'),
   codegen: path.join(projectRoot, 'codegen'),
   nodeModules: path.join(projectRoot, 'node_modules'),
@@ -35,7 +34,9 @@ var paths = {
   staticFiles: path.join(clientSrc, 'static'),
 };
 
-var files = {
+var relPaths = {
+  localDevRoot: 'buildOutput/',
+
   main: 'js/main-bundle.js',
   vendor: 'js/vendor-bundle.js',
 
@@ -46,8 +47,8 @@ var files = {
 };
 
 var patterns = {
-  testSources: path.join(paths.clientSrc, '**/*.spec.ts'),
-  appSources: path.join(paths.clientSrc, '**/!(*.spec).ts'),
+  testSources: path.join(absPaths.clientSrc, '**/*.spec.ts'),
+  appSources: path.join(absPaths.clientSrc, '**/!(*.spec).ts'),
   // The (\\|\/) piece accounts for path separators in *nix and Windows
   angularContext: /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
 };
@@ -60,13 +61,13 @@ var loaders = {
       test: /\.ts$/,
       loaders: ['tslint-loader'],
       include: [
-        paths.clientSrc,
+        absPaths.clientSrc,
       ],
       exclude: [
-        paths.nodeModules, // skip all node modules
-        paths.buildOutput, // skip output
-        paths.codegen, // skip (AOT) generated code
-        paths.serverRoot, // skip server
+        absPaths.nodeModules, // skip all node modules
+        absPaths.buildOutput, // skip output
+        absPaths.codegen, // skip (AOT) generated code
+        absPaths.serverRoot, // skip server
       ],
       enforce: 'pre',
     },
@@ -78,8 +79,8 @@ var loaders = {
       loaders: ['source-map-loader'],
       exclude: [
         // these packages have problems with their sourcemaps
-        path.join(paths.nodeModules, '@angular'),
-        path.join(paths.nodeModules, 'rxjs'),
+        path.join(absPaths.nodeModules, '@angular'),
+        path.join(absPaths.nodeModules, 'rxjs'),
       ],
       enforce: 'pre',
     },
@@ -92,13 +93,13 @@ var loaders = {
     test: /\.ts$/,
     loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
     include: [
-      paths.clientSrc,
-      paths.codegen, // include (AOT) generated code
+      absPaths.clientSrc,
+      absPaths.codegen, // include (AOT) generated code
     ],
     exclude: [
-      paths.nodeModules, // skip all node modules
-      paths.buildOutput, // skip output
-      paths.serverRoot, // skip server
+      absPaths.nodeModules, // skip all node modules
+      absPaths.buildOutput, // skip output
+      absPaths.serverRoot, // skip server
       /\.(spec|e2e|async)\.ts$/, // skip all test and async TS files
     ],
   },
@@ -107,13 +108,13 @@ var loaders = {
     test: /\.ts$/,
     loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
     include: [
-      paths.clientSrc,
+      absPaths.clientSrc,
     ],
     exclude: [
-      paths.nodeModules, // skip all node modules
-      paths.buildOutput, // skip output
-      paths.codegen, // skip (AOT) generated code
-      paths.serverRoot, // skip server
+      absPaths.nodeModules, // skip all node modules
+      absPaths.buildOutput, // skip output
+      absPaths.codegen, // skip (AOT) generated code
+      absPaths.serverRoot, // skip server
       /\.(e2e|async)\.ts$/, // skip end-to-end test and async TS files
     ],
   },
@@ -122,14 +123,14 @@ var loaders = {
     test: /\.json$/,
     loaders: ['json-loader'],
     include: [
-      paths.clientSrc,
+      absPaths.clientSrc,
       // See https://github.com/webpack/webpack/issues/592
-      paths.nodeModules, // consider all node modules
+      absPaths.nodeModules, // consider all node modules
     ],
     exclude: [
-      paths.buildOutput, // skip output
-      paths.codegen, // skip (AOT) generated code
-      paths.serverRoot, // skip server
+      absPaths.buildOutput, // skip output
+      absPaths.codegen, // skip (AOT) generated code
+      absPaths.serverRoot, // skip server
       /\.(spec|e2e|async)\.ts$/, // skip all test and async TS files
     ],
   },
@@ -140,13 +141,13 @@ var loaders = {
     test: /\.component\.css$/,
     loaders: ['raw-loader', 'postcss-loader'],
     include: [
-      paths.clientSrc,
+      absPaths.clientSrc,
     ],
     exclude: [
-      paths.nodeModules, // skip all node modules
-      paths.buildOutput, // skip output
-      paths.codegen, // skip (AOT) generated code
-      paths.serverRoot, // skip server
+      absPaths.nodeModules, // skip all node modules
+      absPaths.buildOutput, // skip output
+      absPaths.codegen, // skip (AOT) generated code
+      absPaths.serverRoot, // skip server
     ],
   },
 
@@ -156,13 +157,13 @@ var loaders = {
     test: [/component\.scss$/, /color-picker\.scss$/],
     loaders: ['raw-loader', 'postcss-loader', 'sass-loader'],
     include: [
-      paths.clientSrc,
+      absPaths.clientSrc,
     ],
     exclude: [
-      paths.nodeModules, // skip all node modules
-      paths.buildOutput, // skip output
-      paths.codegen, // skip (AOT) generated code
-      paths.serverRoot, // skip server
+      absPaths.nodeModules, // skip all node modules
+      absPaths.buildOutput, // skip output
+      absPaths.codegen, // skip (AOT) generated code
+      absPaths.serverRoot, // skip server
     ],
   },
 
@@ -176,13 +177,13 @@ var loaders = {
     */
     loaders: ['style-loader', 'css-loader', 'postcss-loader'],
     include: [
-      paths.clientSrc,
-      paths.nodeModules, // allow to import CSS from third-party libraries
+      absPaths.clientSrc,
+      absPaths.nodeModules, // allow to import CSS from third-party libraries
     ],
     exclude: [
-      paths.buildOutput, // skip output
-      paths.codegen, // skip (AOT) generated code
-      paths.serverRoot, // skip server
+      absPaths.buildOutput, // skip output
+      absPaths.codegen, // skip (AOT) generated code
+      absPaths.serverRoot, // skip server
     ],
   },
 
@@ -191,13 +192,13 @@ var loaders = {
     test: /\.html$/,
     loaders: ['raw-loader'],
     include: [
-      paths.clientSrc,
+      absPaths.clientSrc,
     ],
     exclude: [
-      paths.nodeModules, // skip all node modules
-      paths.buildOutput, // skip output
-      paths.codegen, // skip (AOT) generated code
-      paths.serverRoot, // skip server
+      absPaths.nodeModules, // skip all node modules
+      absPaths.buildOutput, // skip output
+      absPaths.codegen, // skip (AOT) generated code
+      absPaths.serverRoot, // skip server
     ],
   },
 
@@ -209,14 +210,14 @@ var loaders = {
       test: /\.(js|ts)$/,
       loaders: ['istanbul-instrumenter-loader'],
       include: [
-        paths.clientSrc,
+        absPaths.clientSrc,
       ],
       exclude: [
         /\.(e2e|spec)\.ts$/, // skip all test files
-        paths.nodeModules, // skip all node modules
-        paths.buildOutput, // skip output
-        paths.codegen, // skip (AOT) generated code
-        paths.serverRoot, // skip server
+        absPaths.nodeModules, // skip all node modules
+        absPaths.buildOutput, // skip output
+        absPaths.codegen, // skip (AOT) generated code
+        absPaths.serverRoot, // skip server
       ],
       enforce: 'post',
     },
@@ -252,8 +253,8 @@ function buildDefines() {
 var common = {
   urls: urls,
   ports: ports,
-  paths: paths,
-  files: files,
+  absPaths: absPaths,
+  relPaths: relPaths,
   patterns: patterns,
   loaders: loaders,
   noParse: noParse,

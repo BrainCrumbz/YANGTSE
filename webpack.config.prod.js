@@ -12,23 +12,23 @@ var config = {
   devtool: 'source-map',
 
   // Set base directory for resolving entry points
-  context: common.paths.clientSrc,
+  context: common.absPaths.clientSrc,
 
   // Client application only, no dev server
   entry: {
 
-    'vendor': common.paths.vendorEntryAot,
+    'vendor': common.absPaths.vendorEntryAot,
 
-    'main': common.paths.mainEntryAot,
+    'main': common.absPaths.mainEntryAot,
 
   },
 
   output: {
 
-    path: common.paths.buildOutput,
-    filename: common.files.bundle,
-    sourceMapFilename: common.files.sourceMap,
-    chunkFilename: common.files.chunk,
+    path: common.absPaths.buildOutput,
+    filename: common.relPaths.bundle,
+    sourceMapFilename: common.relPaths.sourceMap,
+    chunkFilename: common.relPaths.chunk,
 
     publicPath: common.urls.public,
 
@@ -86,12 +86,12 @@ var config = {
     // See https://github.com/angular/angular/issues/11580
     new webpack.ContextReplacementPlugin(
       common.patterns.angularContext,
-      common.paths.clientSrc
+      common.absPaths.clientSrc
     ),
 
     new webpack.optimize.CommonsChunkPlugin({
       name: ['main', 'vendor'],
-      filename: common.files.bundle,
+      filename: common.relPaths.bundle,
       minChunks: Infinity,
     }),
 
@@ -146,7 +146,7 @@ var config = {
     new webpack.NoErrorsPlugin(),
 
     // Copy static assets from their folder to common output folder
-    new CopyWebpackPlugin([{ from: common.paths.staticFiles }]),
+    new CopyWebpackPlugin([{ from: common.absPaths.staticFiles }]),
 
     // `CheckerPlugin` is optional. Use it if you want async error reporting.
     // We need this plugin to detect a `--watch` mode. It may be removed later

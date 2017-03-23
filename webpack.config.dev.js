@@ -25,30 +25,30 @@ var config = {
   cache: true,
 
   // Set base directory for resolving entry points
-  context: common.paths.clientSrc,
+  context: common.absPaths.clientSrc,
 
   entry: {
 
-    'vendor': common.paths.vendorEntryJit,
+    'vendor': common.absPaths.vendorEntryJit,
 
     // Client application main entry point
-    'main': common.paths.mainEntryJit,
+    'main': common.absPaths.mainEntryJit,
 
   },
 
   output: {
 
     // The output directory as absolute path (required), where build artifacts are saved
-    path: common.paths.buildOutput,
+    path: common.absPaths.buildOutput,
 
     // A template for the name of each output file on disk, as a relative path
-    filename: common.files.bundle,
+    filename: common.relPaths.bundle,
 
     // A template for the name of each source-map file, as a relative path
-    sourceMapFilename: common.files.sourceMap,
+    sourceMapFilename: common.relPaths.sourceMap,
 
     // A template for the name of each intermediate chunk file, as a relative path
-    chunkFilename: common.files.chunk,
+    chunkFilename: common.relPaths.chunk,
 
     publicPath: common.urls.public,
 
@@ -109,12 +109,12 @@ var config = {
     // See https://github.com/angular/angular/issues/11580
     new webpack.ContextReplacementPlugin(
       common.patterns.angularContext,
-      common.paths.clientSrc
+      common.absPaths.clientSrc
     ),
 
     new webpack.optimize.CommonsChunkPlugin({
       name: ['main', 'vendor'],
-      filename: common.files.bundle,
+      filename: common.relPaths.bundle,
       minChunks: Infinity,
     }),
 
@@ -123,7 +123,7 @@ var config = {
 
     // Copy static assets from their folder to common output folder
     new CopyWebpackPlugin([{
-      from: common.paths.staticFiles,
+      from: common.absPaths.staticFiles,
     }]),
 
     // `CheckerPlugin` is optional. Use it if you want async error reporting.
@@ -162,7 +162,7 @@ if (devMode == 'reload') {
     publicPath: common.urls.public,
 
     // webpack dev server will serve files from this directory
-    contentBase: common.paths.localDevRoot,
+    contentBase: common.relPaths.localDevRoot,
 
     proxy: {
       // proxied to backend web server

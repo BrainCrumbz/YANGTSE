@@ -81,7 +81,7 @@ var config = {
     // See https://github.com/angular/angular/issues/11580
     new webpack.ContextReplacementPlugin(
       common.patterns.angularContext,
-      common.paths.clientSrc
+      common.absPaths.clientSrc
     ),
 
   ],
