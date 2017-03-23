@@ -6,8 +6,7 @@ var bodyParser = require('body-parser');
 var errorhandler = require('errorhandler');
 var morgan = require('morgan');
 
-var buildWebpackCommon = require(path.resolve('./webpack.common.js'));
-var webpackCommon = buildWebpackCommon();
+var webpackCommon = require(path.resolve('./webpack.common.js'));
 var packageDef = require(path.resolve('./package.json'));
 
 var router = require('./router');
