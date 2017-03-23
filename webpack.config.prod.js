@@ -1,6 +1,8 @@
 var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var awesomeTs = require('awesome-typescript-loader');
 var buildCommon = require('./webpack.common.js');
+
 var common = buildCommon({
   isAot: true,
 });
@@ -149,6 +151,11 @@ var config = {
 
     // Copy static assets from their folder to common output folder
     new CopyWebpackPlugin([{ from: common.paths.staticFiles }]),
+
+    // `CheckerPlugin` is optional. Use it if you want async error reporting.
+    // We need this plugin to detect a `--watch` mode. It may be removed later
+    // after https://github.com/webpack/webpack/issues/3460 will be resolved.
+    new awesomeTs.CheckerPlugin(),
 
   ],
 

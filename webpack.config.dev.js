@@ -1,7 +1,9 @@
-var url = require('url');
 var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var awesomeTs = require('awesome-typescript-loader');
 var buildCommon = require('./webpack.common.js');
+var url = require('url');
+
 var common = buildCommon();
 
 // ensure development environment
@@ -125,6 +127,11 @@ var config = {
     new CopyWebpackPlugin([{
       from: common.paths.staticFiles,
     }]),
+
+    // `CheckerPlugin` is optional. Use it if you want async error reporting.
+    // We need this plugin to detect a `--watch` mode. It may be removed later
+    // after https://github.com/webpack/webpack/issues/3460 will be resolved.
+    new awesomeTs.CheckerPlugin(),
 
   ],
 
