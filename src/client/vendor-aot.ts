@@ -2,9 +2,9 @@
 
 //import 'ie-shim';  // Internet Explorer
 import 'core-js/es6';
+import 'core-js/es7/reflect';
 
 // Angular 2 libs
-import 'reflect-metadata';
 import 'zone.js/dist/zone.min';
 
 // Angular 2
