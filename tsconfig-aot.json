@@ -20,9 +20,9 @@
     ]
   },
   "exclude": [
+    "src/client/**/*-jit.ts",
     "src/client/**/*.e2e.ts",
     "src/client/**/*.spec.ts",
-    "src/client/main.browser*.ts",
     "src/server",
     "buildOutput",
     "codegen",

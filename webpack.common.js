@@ -88,7 +88,7 @@ var loaders = {
     loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
     include: [
       paths.clientSrc,
-      paths.codegen,
+      paths.codegen, // include (AOT) generated code
     ],
     exclude: [
       paths.nodeModules, // skip all node modules
@@ -258,11 +258,11 @@ function buildCommon(passedOptions) {
 
     mainEntry: isAot
       ? path.join(clientSrc, 'main.browser-aot.ts')
-      : path.join(clientSrc, 'main.browser.ts'),
+      : path.join(clientSrc, 'main.browser-jit.ts'),
 
     vendorEntry: isAot
       ? path.join(clientSrc, 'vendor-aot.ts')
-      : path.join(clientSrc, 'vendor.ts'),
+      : path.join(clientSrc, 'vendor-jit.ts'),
 
   });
 
