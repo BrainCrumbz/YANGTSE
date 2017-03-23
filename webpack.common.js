@@ -111,7 +111,7 @@ var loaders = {
     test: /\.ts$/,
     loaders: [
       'awesome-typescript-loader?configFileName=./tsconfig-aot.json',
-      'angular2-template-loader?aot=true&genDir=./codegen&debug=false'
+      'angular2-template-loader'
     ],
     include: [
       absPaths.clientSrc,
