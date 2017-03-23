@@ -53,45 +53,45 @@ var patterns = {
   angularContext: /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
 };
 
-var loaders = {
+var rules = {
 
-  pre: {
+  // pre-loaders
 
-    tslint: {
-      test: /\.ts$/,
-      loaders: ['tslint-loader'],
-      include: [
-        absPaths.clientSrc,
-      ],
-      exclude: [
-        absPaths.nodeModules, // skip all node modules
-        absPaths.buildOutput, // skip output
-        absPaths.codegen, // skip (AOT) generated code
-        absPaths.serverRoot, // skip server
-      ],
-      enforce: 'pre',
-    },
-
-    // Source map loader support for *.js files
-    // Extracts SourceMaps for source files that are added as sourceMappingURL comment.
-    javascriptTest: {
-      test: /\.js$/,
-      loaders: ['source-map-loader'],
-      exclude: [
-        // these packages have problems with their sourcemaps
-        path.join(absPaths.nodeModules, '@angular'),
-        path.join(absPaths.nodeModules, 'rxjs'),
-      ],
-      enforce: 'pre',
-    },
-
+  tslint: {
+    enforce: 'pre',
+    test: /\.ts$/,
+    loader: 'tslint-loader',
+    include: [
+      absPaths.clientSrc,
+    ],
+    exclude: [
+      absPaths.nodeModules, // skip all node modules
+      absPaths.buildOutput, // skip output
+      absPaths.codegen, // skip (AOT) generated code
+      absPaths.serverRoot, // skip server
+    ],
   },
+
+  // Source map loader support for *.js files
+  // Extracts SourceMaps for source files that are added as sourceMappingURL comment.
+  javascriptTest: {
+    enforce: 'pre',
+    test: /\.js$/,
+    loader: 'source-map-loader',
+    exclude: [
+      // these packages have problems with their sourcemaps
+      path.join(absPaths.nodeModules, '@angular'),
+      path.join(absPaths.nodeModules, 'rxjs'),
+    ],
+  },
+
+  // normal loaders
 
   // all `.ts` files will be compiled through tsc by `awesome-typescript-loader`.
   // `angular2-template-loader` converts template/style URLs into inlined template/styles.
   typescriptJit: {
     test: /\.ts$/,
-    loaders: [
+    use: [
       'awesome-typescript-loader',
       'angular2-template-loader'
     ],
@@ -109,10 +109,14 @@ var loaders = {
 
   typescriptAot: {
     test: /\.ts$/,
-    loaders: [
-      'awesome-typescript-loader?configFileName=./tsconfig-aot.json',
-      'angular2-template-loader'
-    ],
+    use: [{
+      loader: 'awesome-typescript-loader',
+      options: {
+        configFileName: './tsconfig-aot.json',
+      },
+    }, {
+      loader: 'angular2-template-loader',
+    }],
     include: [
       absPaths.clientSrc,
       absPaths.codegen, // include (AOT) generated code
@@ -127,7 +131,10 @@ var loaders = {
 
   typescriptTest: {
     test: /\.ts$/,
-    loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
+    use: [
+      'awesome-typescript-loader',
+      'angular2-template-loader',
+    ],
     include: [
       absPaths.clientSrc,
     ],
@@ -140,27 +147,14 @@ var loaders = {
     ],
   },
 
-  json: {
-    test: /\.json$/,
-    loaders: ['json-loader'],
-    include: [
-      absPaths.clientSrc,
-      // See https://github.com/webpack/webpack/issues/592
-      absPaths.nodeModules, // consider all node modules
-    ],
-    exclude: [
-      absPaths.buildOutput, // skip output
-      absPaths.codegen, // skip (AOT) generated code
-      absPaths.serverRoot, // skip server
-      /\.(spec|e2e|async)\.ts$/, // skip all test and async TS files
-    ],
-  },
-
   // support for requiring component-scoped CSS as raw text
   // NOTE: this assumes that their filename ends in '.component.css'
   componentCss: {
     test: /\.component\.css$/,
-    loaders: ['raw-loader', 'postcss-loader'],
+    use: [
+      'raw-loader',
+      'postcss-loader',
+    ],
     include: [
       absPaths.clientSrc,
     ],
@@ -176,7 +170,11 @@ var loaders = {
   // NOTE: this assumes that their filename ends in 'component.scss'
   componentSass: {
     test: [/component\.scss$/, /color-picker\.scss$/],
-    loaders: ['raw-loader', 'postcss-loader', 'sass-loader'],
+    use: [
+      'raw-loader',
+      'postcss-loader',
+      'sass-loader',
+    ],
     include: [
       absPaths.clientSrc,
     ],
@@ -192,11 +190,28 @@ var loaders = {
   // NOTE: this assumes that their filename don't contain `component`
   globalCss: {
     test: /^(?!.*component).*\.css$/,
-    // TODO disable sourceMap until `TypeError: Path must be a string. Received undefined` error is fixed
     /*
-    loaders: ['style-loader', 'css-loader?sourceMap', 'postcss-loader?sourceMap'],
+    use: [
+      {
+        loader: 'style-loader',
+      }, {
+        loader: 'css-loader',
+        options: {
+          sourceMap: true,
+        },
+      }, {
+        loader: 'postcss-loader',
+        options: {
+          sourceMap: true,
+        },
+      },
+    ],
     */
-    loaders: ['style-loader', 'css-loader', 'postcss-loader'],
+    use: [
+      'style-loader',
+      'css-loader',
+      'postcss-loader',
+    ],
     include: [
       absPaths.clientSrc,
       absPaths.nodeModules, // allow to import CSS from third-party libraries
@@ -211,7 +226,7 @@ var loaders = {
   // support for requiring HTML as raw text
   html: {
     test: /\.html$/,
-    loaders: ['raw-loader'],
+    loader: 'raw-loader',
     include: [
       absPaths.clientSrc,
     ],
@@ -223,26 +238,22 @@ var loaders = {
     ],
   },
 
-  post: {
-
-    // instrument only code that isn't test or third-party
-    // delay coverage until after tests are run, fixing transpiled source coverage error
-    istanbul: {
-      test: /\.(js|ts)$/,
-      loaders: ['istanbul-instrumenter-loader'],
-      include: [
-        absPaths.clientSrc,
-      ],
-      exclude: [
-        /\.(e2e|spec)\.ts$/, // skip all test files
-        absPaths.nodeModules, // skip all node modules
-        absPaths.buildOutput, // skip output
-        absPaths.codegen, // skip (AOT) generated code
-        absPaths.serverRoot, // skip server
-      ],
-      enforce: 'post',
-    },
-
+  // instrument only code that isn't test or third-party
+  // delay coverage until after tests are run, fixing transpiled source coverage error
+  istanbul: {
+    enforce: 'post',
+    test: /\.(js|ts)$/,
+    loader: 'istanbul-instrumenter-loader',
+    include: [
+      absPaths.clientSrc,
+    ],
+    exclude: [
+      /\.(e2e|spec)\.ts$/, // skip all test files
+      absPaths.nodeModules, // skip all node modules
+      absPaths.buildOutput, // skip output
+      absPaths.codegen, // skip (AOT) generated code
+      absPaths.serverRoot, // skip server
+    ],
   },
 
 };
@@ -259,8 +270,14 @@ var postcss = [
 
 ];
 
-// resolve files using only those extensions
-var resolvedExtensions = ['.ts', '.js', '.json'];
+var resolve = {
+
+  // resolve files using only those extensions
+  extensions: ['.ts', '.js', '.json'],
+
+  // resolve modules also looking in those paths
+  modules: [absPaths.nodeModules],
+};
 
 function buildDefines() {
   var packageDef = require('./package.json');
@@ -277,10 +294,10 @@ var common = {
   absPaths: absPaths,
   relPaths: relPaths,
   patterns: patterns,
-  loaders: loaders,
+  rules: rules,
   noParse: noParse,
   postcss: postcss,
-  resolvedExtensions: resolvedExtensions,
+  resolve: resolve,
   buildDefines: buildDefines,
 };
 

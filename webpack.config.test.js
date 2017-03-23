@@ -30,20 +30,19 @@ var config = {
     loaders: [
 
       // Pre-loaders
-      common.loaders.pre.tslint,
-      common.loaders.pre.javascriptTest,
+      common.rules.tslint,
+      common.rules.javascriptTest,
 
       // Loaders
-      common.loaders.typescriptTest,
-      common.loaders.json,
-      common.loaders.componentSass,
-      common.loaders.componentCss,
-      common.loaders.globalCss,
-      common.loaders.html,
+      common.rules.typescriptTest,
+      common.rules.componentSass,
+      common.rules.componentCss,
+      common.rules.globalCss,
+      common.rules.html,
 
       // Post-loaders
       // TODO enable when it is not scrambling source maps
-      //common.loaders.post.istanbul,
+      //common.rules.istanbul,
 
     ],
 
@@ -56,7 +55,8 @@ var config = {
 
     cache: false,
 
-    extensions: common.resolvedExtensions,
+    extensions: common.resolve.extensions,
+    modules: common.resolve.modules,
 
   },
 
@@ -67,7 +67,8 @@ var config = {
     // Until loaders are updated, use the LoaderOptionsPlugin to pass custom properties to third-party loaders
     new webpack.LoaderOptionsPlugin({
 
-      // (For UglifyJsPlugin) Put loaders into minimize mode
+      // Put loaders into debug mode
+      // Note: this will be deprecated in v3 or later. Remove when loaders will update.
       debug: false,
 
       options: {

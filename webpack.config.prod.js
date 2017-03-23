@@ -39,15 +39,14 @@ var config = {
     loaders: [
 
       // Pre-loaders
-      common.loaders.pre.tslint,
+      common.rules.tslint,
 
       // Loaders
-      common.loaders.typescriptAot,
-      common.loaders.json,
-      common.loaders.componentSass,
-      common.loaders.componentCss,
-      common.loaders.globalCss,
-      common.loaders.html,
+      common.rules.typescriptAot,
+      common.rules.componentSass,
+      common.rules.componentCss,
+      common.rules.globalCss,
+      common.rules.html,
 
       // Post-loaders
       // none
@@ -61,7 +60,8 @@ var config = {
 
   resolve: {
 
-    extensions: common.resolvedExtensions,
+    extensions: common.resolve.extensions,
+    modules: common.resolve.modules,
 
   },
 
@@ -72,8 +72,13 @@ var config = {
     // Until loaders are updated, use the LoaderOptionsPlugin to pass custom properties to third-party loaders
     new webpack.LoaderOptionsPlugin({
 
-      // (For UglifyJsPlugin) Put loaders into minimize mode
+      // Put loaders into debug mode
+      // Note: this will be deprecated in v3 or later. Remove when loaders will update.
       debug: false,
+
+      // Put loaders into minimize mode.
+      // Note: this will be deprecated in v3 or later. Remove when loaders will update.
+      minimize: true,
 
       options: {
 
@@ -92,7 +97,7 @@ var config = {
     new webpack.optimize.CommonsChunkPlugin({
       name: ['main', 'vendor'],
       filename: common.relPaths.bundle,
-      minChunks: Infinity,
+      minChunks: mod => /node_modules/.test(mod.resource),
     }),
 
     // Minimize scripts
@@ -145,15 +150,13 @@ var config = {
       */
     }),
 
-    // Do not duplicate modules in the output
-    // TODO enable again when this plugin is fixed. See https://github.com/webpack/webpack/issues/2644
-    //new webpack.optimize.DedupePlugin(),
-
     // Only emit files when there are no errors
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
 
     // Copy static assets from their folder to common output folder
-    new CopyWebpackPlugin([{ from: common.absPaths.staticFiles }]),
+    new CopyWebpackPlugin([{
+      from: common.absPaths.staticFiles,
+    }]),
 
     // `CheckerPlugin` is optional. Use it if you want async error reporting.
     // We need this plugin to detect a `--watch` mode. It may be removed later

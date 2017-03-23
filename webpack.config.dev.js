@@ -62,15 +62,14 @@ var config = {
     loaders: [
 
       // Pre-loaders
-      common.loaders.pre.tslint,
+      common.rules.tslint,
 
       // Loaders
-      common.loaders.typescriptJit,
-      common.loaders.json,
-      common.loaders.componentSass,
-      common.loaders.componentCss,
-      common.loaders.globalCss,
-      common.loaders.html,
+      common.rules.typescriptJit,
+      common.rules.componentSass,
+      common.rules.componentCss,
+      common.rules.globalCss,
+      common.rules.html,
 
       // Post-loaders
       // none
@@ -84,7 +83,8 @@ var config = {
 
   resolve: {
 
-    extensions: common.resolvedExtensions,
+    extensions: common.resolve.extensions,
+    modules: common.resolve.modules,
 
   },
 
@@ -95,7 +95,8 @@ var config = {
     // Until loaders are updated, use the LoaderOptionsPlugin to pass custom properties to third-party loaders
     new webpack.LoaderOptionsPlugin({
 
-      // (For UglifyJsPlugin) Put loaders into debug mode
+      // Put loaders into debug mode
+      // Note: this will be deprecated in v3 or later. Remove when loaders will update.
       debug: true,
 
       options: {
@@ -119,7 +120,7 @@ var config = {
     }),
 
     // Only emit files when there are no errors
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
 
     // Copy static assets from their folder to common output folder
     new CopyWebpackPlugin([{
