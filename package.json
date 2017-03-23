@@ -5,7 +5,7 @@
   "main": "src/server/server.js",
   "scripts": {
     "clean": "rimraf ./buildOutput/* ./codegen/*",
-    "clean-deep": "npm cache clean && rimraf ./node_modules/* ./buildOutput/*",
+    "clean-deep": "npm cache clean && rimraf ./node_modules/* && npm run clean",
 
     "lint": "tslint ./client/**/*.ts",
 
@@ -96,7 +96,7 @@
     "@types/jasmine": "2.5.35",
     "angular2-template-loader": "0.5.0",
     "autoprefixer": "6.3.6",
-    "awesome-typescript-loader": "1.1.1",
+    "awesome-typescript-loader": "3.1.2",
     "copy-webpack-plugin": "1.1.1",
     "css-loader": "0.25.0",
     "istanbul-instrumenter-loader": "0.2.0",

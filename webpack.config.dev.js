@@ -1,7 +1,6 @@
 var url = require('url');
 var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
-var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 var buildCommon = require('./webpack.common.js');
 var common = buildCommon();
 
@@ -112,9 +111,6 @@ var config = {
       common.patterns.angularContext,
       common.paths.clientSrc
     ),
-
-    // Allow setting option in tsconfig, so that type checking happens in a separate process and webpack doesn't have to wait
-    new ForkCheckerPlugin(),
 
     new webpack.optimize.CommonsChunkPlugin({
       name: ['main', 'vendor'],

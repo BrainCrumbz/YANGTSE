@@ -40,7 +40,6 @@
    "skipMetadataEmit" : true
   },
   "awesomeTypescriptLoaderOptions": {
-    "forkChecker": true,
     "useCache": true,
     "useWebpackText": true
   },

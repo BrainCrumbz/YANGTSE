@@ -21,7 +21,6 @@
       "es6"
     ],
     "types": [
-      "core-js",
       "express",
       "jasmine"
     ],
@@ -36,7 +35,6 @@
     "node_modules"
   ],
   "awesomeTypescriptLoaderOptions": {
-    "forkChecker": true,
     "useWebpackText": true
   },
   "compileOnSave": false,
