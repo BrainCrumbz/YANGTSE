@@ -5,6 +5,8 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true,
     "skipDefaultLibCheck": true,
     "preserveConstEnums": true,
     "removeComments": false,
@@ -12,7 +14,6 @@
     "strictNullChecks": false,
     "pretty": true,
     "sourceMap": true,
-    "allowSyntheticDefaultImports": true,
     "lib": [
       "dom",
       "es6"
@@ -21,7 +22,8 @@
       "core-js",
       "express",
       "jasmine"
-    ]
+    ],
+    "outDir": "buildOutput"
   },
   "exclude": [
     "src/client/**/*-aot.ts",

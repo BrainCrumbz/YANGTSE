@@ -5,6 +5,8 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true,
     "skipDefaultLibCheck": true,
     "preserveConstEnums": true,
     "removeComments": false,
@@ -12,12 +14,14 @@
     "strictNullChecks": false,
     "pretty": true,
     "sourceMap": true,
-    "allowSyntheticDefaultImports": true,
-    "noEmit": true,
+    "lib": [
+      "dom",
+      "es6"
+    ],
     "types": [
-      "core-js",
       "express"
-    ]
+    ],
+    "outDir": "buildOutput"
   },
   "exclude": [
     "src/client/**/*-jit.ts",
