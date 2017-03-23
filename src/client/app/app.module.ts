@@ -10,10 +10,7 @@ import { appRouting } from '../app/app.routing';
 import { appProviders } from '../app/app.providers';
 
 // Here import global styles common to all app modules
-/*
 import '../shared/common-styles.css';
-*/
-require('../shared/common-styles.css');
 
 @NgModule({
   imports: [
