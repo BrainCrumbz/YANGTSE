@@ -43,8 +43,6 @@
    "genDir": "codegen",
    "skipMetadataEmit" : true
   },
-  "awesomeTypescriptLoaderOptions": {
-  },
   "compileOnSave": false,
   "buildOnSave": false
 }

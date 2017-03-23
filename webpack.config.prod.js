@@ -97,43 +97,50 @@ var config = {
 
     // Minimize scripts
     new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+
       // to debug production build, uncomment lines in [debug] section and comment lines in [prod] section
 
-      // [prod]
+      // [prod]: Settings for production build
       beautify: false,
       mangle: {
         screw_ie8 : true,
         keep_fnames: true,
       },
-      /* To disable mangling for any reason, replace with:
-      mangle: false,
-      */
+      comments: false,
       compress: {
         warnings: false,
         screw_ie8: true,
         drop_debugger: true,
         drop_console: true,
         dead_code: true,
-      },
-      output: {
-        comments: false
+        unused: true,
+        conditionals: true,
+        comparisons: true,
+        sequences: true,
+        evaluate: true,
+        if_return: true,
+        join_vars: true,
       },
 
-      // [debug]
+      // [debug]: Settings when debugging production build
       /*
       beautify: true,
       mangle: false,
+      comments: true,
       compress: {
         warnings: true,
-        screw_ie8: true,
-        keep_fnames: true,
+        screw_ie8: false,
         drop_debugger: false,
         drop_console: false,
         dead_code: false,
         unused: false,
-      },
-      output: {
-        comments: true,
+        conditionals: false,
+        comparisons: false,
+        sequences: false,
+        evaluate: false,
+        if_return: false,
+        join_vars: false,
       },
       */
     }),
