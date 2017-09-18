@@ -10,7 +10,7 @@ var config = {
 
   // no need to specify entry points: this configuration is used to run webpack
   // by karma, that is responsible for submitting test files as entry points
-  entry: {},
+  entry: function() { return{}; },
 
   // for same reason, no need to specify outputs, those are managed by karma as well
   output: {},
@@ -52,8 +52,6 @@ var config = {
   },
 
   resolve: {
-
-    cache: false,
 
     extensions: common.resolve.extensions,
     modules: common.resolve.modules,
